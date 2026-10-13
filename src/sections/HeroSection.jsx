@@ -16,8 +16,8 @@ const containerVars = {
   },
   open: {
     transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.09,
+      delayChildren: 0.1,
+      staggerChildren: 0.06,
       staggerDirection: 1,
     },
   },
@@ -35,7 +35,7 @@ const h1Vars = {
     y: 0,
     transition: {
       ease: [0, 0.55, 0.45, 1],
-      duration: 1.2,
+      duration: 0.8,
     },
   },
 };
@@ -57,7 +57,7 @@ const HeroSection = ({ id, content }) => {
       <motion.div
         initial={{ scale: 1.2 }}
         animate={{ scale: 1 }}
-        transition={{ duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
         className="absolute inset-0 overflow-hidden"
       >
         <Image
@@ -110,7 +110,7 @@ const HeroSection = ({ id, content }) => {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.5, duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ delay: 0.6, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="text-sm sm:text-base md:text-lg lg:text-xl text-center text-white font-semibold tracking-wider leading-5 sm:leading-6 md:leading-7 max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] px-2"
         >
           {content?.heroSubText}
@@ -120,7 +120,7 @@ const HeroSection = ({ id, content }) => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
+          transition={{ delay: 0.9, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
           className="mt-2 sm:mt-4"
         >
           <Button to={ROUTES.CONTACT} text={content?.heroCtaText} />

@@ -140,7 +140,7 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
       <motion.nav
         initial={{ y: -500, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.5, duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
+        transition={{ delay: 0.4, duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
         className={`flex items-center justify-between w-full max-w-[1365px] px-3 py-3 transition-all duration-300 ${showSolidBg ? 'header-box' : 'glass-card'}`}
       >
         {/* Logo */}
