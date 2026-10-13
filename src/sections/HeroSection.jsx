@@ -135,12 +135,12 @@ const HeroSection = ({ id, content }) => {
           </h2>
           <div className="w-full flex justify-start">
             <Link to={ROUTES.ABOUT_US}>
-            <button className="learn-more">
+            <span className="learn-more">
               <span className="circle" aria-hidden="true">
                 <span className="icon arrow"></span>
               </span>
               <span className="button-text">{content?.secondaryHeroCta}</span>
-            </button>
+            </span>
             </Link>
           </div>
         </div>

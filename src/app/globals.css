@@ -164,6 +164,11 @@ li {
     position: relative;
     border: none;
     background: none;
+    /* touch target: ≥24px visina + razmak (Lighthouse tap targets) */
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 8px 10px;
     transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
     transition-duration: 400ms;
     transition-property: color;
@@ -329,12 +334,16 @@ button {
   font-family: inherit;
  }
  
- button.learn-more {
+ .learn-more {
   width: 12rem;
   height: auto;
+  /* sad je <span> unutar <Link> (valjan HTML), pa treba eksplicitni display */
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
  }
  
- button.learn-more .circle {
+ .learn-more .circle {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: relative;
   display: block;
@@ -345,7 +354,7 @@ button {
   border-radius: 1.625rem;
  }
  
- button.learn-more .circle .icon {
+ .learn-more .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -354,7 +363,7 @@ button {
   background: #fff;
  }
  
- button.learn-more .circle .icon.arrow {
+ .learn-more .circle .icon.arrow {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   left: 0.625rem;
   width: 1.125rem;
@@ -362,7 +371,7 @@ button {
   background: none;
  }
  
- button.learn-more .circle .icon.arrow::before {
+ .learn-more .circle .icon.arrow::before {
   position: absolute;
   content: "";
   top: -0.29rem;
@@ -374,7 +383,7 @@ button {
   transform: rotate(45deg);
  }
  
- button.learn-more .button-text {
+ .learn-more .button-text {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -508,12 +517,16 @@ button {
   font-family: inherit;
  }
  
- button.learn-more-dark {
+ .learn-more-dark {
   width: 18rem;
   height: auto;
+  /* sad je <span> unutar <Link> (valjan HTML), pa treba eksplicitni display */
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
  }
  
- button.learn-more-dark .circle {
+ .learn-more-dark .circle {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: relative;
   display: block;
@@ -524,7 +537,7 @@ button {
   border-radius: 1.625rem;
  }
  
- button.learn-more-dark .circle .icon {
+ .learn-more-dark .circle .icon {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -533,7 +546,7 @@ button {
   background: #fff;
  }
  
- button.learn-more-dark .circle .icon.arrow.dark {
+ .learn-more-dark .circle .icon.arrow.dark {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   left: 0.625rem;
   width: 1.125rem;
@@ -541,7 +554,7 @@ button {
   background: none;
  }
  
- button.learn-more-dark .circle .icon.arrow.dark::before {
+ .learn-more-dark .circle .icon.arrow.dark::before {
   position: absolute;
   content: "";
   top: -0.29rem;
@@ -553,7 +566,7 @@ button {
   transform: rotate(45deg);
  }
  
- button.learn-more-dark .button-text-dark {
+ .learn-more-dark .button-text-dark {
   transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
   position: absolute;
   top: 0;
@@ -581,3 +594,9 @@ button {
  button:hover .button-text-dark {
   color: #ffffff;
  }
+/* Swiper pagination bullets: veći dodirni cilj (Lighthouse tap targets) */
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  margin: 0 8px !important;
+}

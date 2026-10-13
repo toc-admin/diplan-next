@@ -40,6 +40,22 @@ const SiteChrome = () => {
     setOpen(false);
   }, [pathname]);
 
+  // The third-party Chatnav embed injects an <iframe id="chat-iframe"> without
+  // a title (Lighthouse a11y fail). Patch it as soon as it appears.
+  useEffect(() => {
+    const patch = () => {
+      const frame = document.getElementById("chat-iframe");
+      if (frame && !frame.title) frame.title = "Chat podrška";
+      return !!frame;
+    };
+    if (patch()) return;
+    const observer = new MutationObserver(() => {
+      if (patch()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <NavBar scrollY={scrollY} isOpen={isOpen} setOpen={setOpen} location={location} />

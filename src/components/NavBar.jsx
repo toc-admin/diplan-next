@@ -145,7 +145,7 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
       >
         {/* Logo */}
         <div className="flex items-center pl-8">
-          <Link to={ROUTES.HOME}>
+          <Link to={ROUTES.HOME} aria-label="DI plan — naslovna">
             <DiPlanLogo width={152} height={48} color={logoColorClass} />
           </Link>
         </div>
@@ -153,27 +153,27 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
         {/* Navigation Links */}
         <div className="hidden lg:flex items-center justify-center gap-10 font-semibold text-sm">
           <Link to={ROUTES.HOME}>
-            <button className={`nav-button ${textColorClass}`}>
+            <span className={`nav-button ${textColorClass}`}>
               {locale.locale === "hr-HR" && "Naslovna"}
               {locale.locale === "en" && "Home"}
               {locale.locale === "de-DE" && "Startseite"}
-            </button>
+            </span>
           </Link>
 
           <Link to={ROUTES.ABOUT_US}>
-            <button className={`nav-button ${textColorClass}`}>
+            <span className={`nav-button ${textColorClass}`}>
               {locale.locale === "hr-HR" && "O nama"}
               {locale.locale === "en" && "About us"}
               {locale.locale === "de-DE" && "Über uns"}
-            </button>
+            </span>
           </Link>
 
           <Link to={ROUTES.PROJECT}>
-            <button className={`nav-button ${textColorClass}`}>
+            <span className={`nav-button ${textColorClass}`}>
               {locale.locale === "hr-HR" && "Projekti"}
               {locale.locale === "en" && "Projects"}
               {locale.locale === "de-DE" && "Projekte"}
-            </button>
+            </span>
           </Link>
 
           {/* Usluge with dropdown */}
@@ -183,11 +183,11 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
             onMouseLeave={() => setIsServicesShown(false)}
           >
             <Link to={ROUTES.SERVICE}>
-              <button className={`nav-button ${textColorClass}`}>
+              <span className={`nav-button ${textColorClass}`}>
                 {locale.locale === "hr-HR" && "Usluge"}
                 {locale.locale === "en" && "Services"}
                 {locale.locale === "de-DE" && "Leistungen"}
-              </button>
+              </span>
             </Link>
 
             <AnimatePresence>
@@ -239,31 +239,31 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
           </div>
 
           <Link to={ROUTES.CONTACT}>
-            <button className={`nav-button ${textColorClass}`}>
+            <span className={`nav-button ${textColorClass}`}>
               {locale.locale === "hr-HR" && "Kontakt"}
               {locale.locale === "en" && "Contact"}
               {locale.locale === "de-DE" && "Kontakt"}
-            </button>
+            </span>
           </Link>
 
           <Link to={ROUTES.BLOG}>
-            <button className={`nav-button ${textColorClass}`}>
+            <span className={`nav-button ${textColorClass}`}>
             {locale.locale === "hr-HR" && "Novosti"}
               {locale.locale === "en" && "News"}
               {locale.locale === "de-DE" && "Nachricht"}
-            </button>
+            </span>
           </Link>
         </div>
 
         <div className="flex items-center justify-center gap-4">
           <Link to={ROUTES.CONTACT}>
-            <button
+            <span
               className={`bg-cta-color text-white rounded-full px-6 py-4 font-semibold xl:flex hidden`}
             >
               {locale.locale === "hr-HR" && "Započni svoj projekt"}
               {locale.locale === "en" && "Start your project"}
               {locale.locale === "de-DE" && "Starte dein Projekt"}
-            </button>
+            </span>
           </Link>
           <LocaleSwitcher />
           {/* Mobile Hamburger */}

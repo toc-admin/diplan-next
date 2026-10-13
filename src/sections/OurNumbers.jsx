@@ -26,12 +26,12 @@ const OurNumbers = ({ id, content }) => {
             {content?.numbersSubtitle}
           </p>
           <Link to={ROUTES.CONTACT} className="mt-2">
-            <button className="learn-more-dark">
+            <span className="learn-more-dark">
               <span className="circle" aria-hidden="true">
                 <span className="icon arrow dark"></span>
               </span>
               <span className="button-text-dark">{content?.numbersCta}</span>
-            </button>
+            </span>
           </Link>
         </div>
 

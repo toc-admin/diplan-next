@@ -33,13 +33,13 @@ const Services = ({ id, content, services = [] }) => {
           {service.heroSubtitle}
         </p>
         <Link to={ROUTES.SERVICE + "/" + service.slug}>
-          <button className="font-medium text-brand-color text-lg nav-button">
+          <span className="font-medium text-brand-color text-lg nav-button">
             {locale === "hr-HR"
               ? "Saznaj više"
               : locale === "en"
               ? "Learn More"
               : "Erfahren Sie meh"}
-          </button>
+          </span>
         </Link>
       </div>
     );

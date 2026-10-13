@@ -46,7 +46,7 @@ const Contact = ({ content, to, number }) => {
         </a>
       ) : (
         <Link to={to}>
-          <button
+          <span
             className="
               bg-cta-color
               px-6 sm:px-8 py-3 sm:py-4
@@ -55,7 +55,7 @@ const Contact = ({ content, to, number }) => {
             "
           >
             {content?.finalCtaButton}
-          </button>
+          </span>
         </Link>
       )}
     </div>
