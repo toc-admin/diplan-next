@@ -8,6 +8,7 @@ const ProjectCard = (props) => {
       <div className="relative w-full h-[450px] rounded-xl overflow-hidden shadow-lg group">
         <img
           src={props.image}
+          loading="lazy"
           alt={props.title}
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />

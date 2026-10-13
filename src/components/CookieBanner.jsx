@@ -12,6 +12,10 @@ const CookieBanner = () => {
     const stored = getConsent();
     if (!stored) {
       setVisible(true);
+    } else {
+      // Re-apply the saved choice to GTM on every load (was App.jsx's
+      // initConsentFromStorage in the old SPA).
+      applyConsentToGTM(stored);
     }
     // Expose a global to reopen preferences from footer link
     window.showCookiePreferences = () => {

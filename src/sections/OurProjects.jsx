@@ -120,7 +120,8 @@ const OurProjects = ({ id, content, filter, initialProjects = null }) => {
               <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[750px] rounded-lg sm:rounded-xl overflow-hidden shadow-lg group">
                 <Link to={`/project/${project.slug}`} state={{ content: content }}>
                   <img
-                    src={project.coverImage.url}
+                    src={project.coverImage?.formats?.large?.url || project.coverImage?.url}
+                    loading="lazy"
                     alt={project.title}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />

@@ -1,10 +1,10 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import heroImg from "../assets/images/hero-image.webp";
 import Button from "../components/Button";
 import { ROUTES } from "../config/routes";
-import ReactMarkdown from "react-markdown";
 import Link from "../components/LocalizedLink";
 
 const containerVars = {
@@ -51,20 +51,31 @@ const HeroSection = ({ id, content }) => {
       id={id}
       className="relative flex flex-col items-center justify-start px-4 sm:px-6 md:px-12 lg:px-24 xl:px-44 gap-64 sm:gap-64 md:gap-64 lg:gap-64 py-12 sm:py-16 md:py-24 lg:py-32 xl:py-56"
     >
-      {/* Background Image */}
+      {/* Background Image — next/image with priority so the LCP element is
+          discovered and optimised (responsive AVIF/WebP) instead of a CSS
+          background pulling the full 2.5 MB original (T7) */}
       <motion.div
         initial={{ scale: 1.2 }}
         animate={{ scale: 1 }}
         transition={{ duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 70%), 
-                            linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%), 
-                            url(${heroImg.src})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      />
+        className="absolute inset-0 overflow-hidden"
+      >
+        <Image
+          src={heroImg}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 70%),
+                              linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%)`,
+          }}
+        />
+      </motion.div>
       <div className="absolute bottom-0 left-0 w-full h-[60px] sm:h-[70px] md:h-[80px] lg:h-[90px] xl:h-[101px] bg-white rounded-t-[40px] sm:rounded-t-[50px] md:rounded-t-[60px] lg:rounded-t-[70px] xl:rounded-t-[80px] z-20 transform translate-y-0.5" />
       
       {/* H1 Animation & Subtext */}

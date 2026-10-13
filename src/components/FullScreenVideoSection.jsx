@@ -36,10 +36,12 @@ const FullScreenVideoSection = ({ videoUrl, posterImage }) => {
 
   return (
     <div className="w-full relative">
+      {/* No autoplay: the 16 MB file would download on page load (T7).
+          preload="none" + poster means nothing is fetched until play. */}
       <video
         ref={videoRef}
         className="w-full h-auto object-cover cursor-pointer"
-        autoPlay
+        preload="none"
         muted={isMuted}
         loop={false}
         playsInline
