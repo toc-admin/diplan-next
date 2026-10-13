@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<title>Izvješće o ispravcima — di-plan.hr</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; color: #1a1a1a; font-size: 10.5pt; line-height: 1.55; }
+  .page { max-width: 180mm; margin: 0 auto; }
+  h1 { color: #0A3264; font-size: 21pt; margin: 4mm 0 1mm; }
+  .subtitle { color: #555; font-size: 11pt; margin-bottom: 6mm; }
+  h2 { color: #0A3264; font-size: 14pt; margin: 8mm 0 3mm; border-bottom: 2px solid #0A3264; padding-bottom: 1.5mm; }
+  h3 { color: #0A3264; font-size: 11pt; margin: 5mm 0 2mm; }
+  p { margin-bottom: 2.5mm; }
+  table { width: 100%; border-collapse: collapse; margin: 3mm 0 4mm; font-size: 9.5pt; }
+  th, td { border: 1px solid #ccd4de; padding: 2mm 2.5mm; text-align: left; vertical-align: top; }
+  th { background: #0A3264; color: #fff; font-weight: 600; }
+  tr:nth-child(even) td { background: #f4f7fa; }
+  .meta-table td:first-child { width: 28mm; font-weight: 700; color: #0A3264; background: #f4f7fa; }
+  .status-ok { color: #0a7a33; font-weight: 700; white-space: nowrap; }
+  .status-info { color: #b35900; font-weight: 700; white-space: nowrap; }
+  .ticket { border: 1px solid #ccd4de; border-radius: 3mm; padding: 4mm; margin-bottom: 4mm; page-break-inside: avoid; }
+  .ticket h3 { margin-top: 0; display: flex; justify-content: space-between; }
+  .ticket .label { font-size: 8.5pt; text-transform: uppercase; letter-spacing: 0.06em; color: #777; font-weight: 700; margin-top: 2.5mm; }
+  code { background: #eef2f6; padding: 0.3mm 1.2mm; border-radius: 1mm; font-size: 9pt; }
+  .imgrow { display: flex; gap: 4mm; margin: 3mm 0 5mm; page-break-inside: avoid; }
+  .imgrow figure { flex: 1; min-width: 0; }
+  .imgrow img { width: 100%; border: 1px solid #ccd4de; border-radius: 2mm; }
+  figcaption { font-size: 8.5pt; color: #666; text-align: center; margin-top: 1.5mm; }
+  .single-img { page-break-inside: avoid; margin: 3mm 0 5mm; }
+  .single-img img { width: 100%; border: 1px solid #ccd4de; border-radius: 2mm; }
+  .note { background: #fdf4e8; border-left: 3px solid #EE770F; padding: 3mm 4mm; margin: 3mm 0; font-size: 9.5pt; page-break-inside: avoid; }
+  .footer { margin-top: 8mm; padding-top: 3mm; border-top: 1px solid #ccd4de; color: #777; font-size: 8.5pt; }
+  .pagebreak { page-break-before: always; }
+  ul { margin: 0 0 3mm 5mm; }
+  li { margin-bottom: 1mm; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<h1>Izvješće o ispravcima web stranice di&#8209;plan.hr</h1>
+<p class="subtitle">Odgovor na „Zahtjev za ispravak web stranice di-plan.hr" od 12. 10. 2026. — stavke T1–T8</p>
+
+<table class="meta-table">
+  <tr><td>Naručitelj</td><td>DI plan d.o.o., Zagrebačka cesta 143A, 10000 Zagreb</td></tr>
+  <tr><td>Izvođač</td><td>Bruno Čukić, Ninefold.eu</td></tr>
+  <tr><td>Datum</td><td>14. 10. 2026.</td></tr>
+  <tr><td>Status</td><td><strong>Svi tehnički zahtjevi (T1–T8) riješeni i pušteni u produkciju 13. 10. 2026.</strong></td></tr>
+</table>
+
+<h2>1. Sažetak izvedenih radova</h2>
+<p>Stranica je u cijelosti prebačena s klijentske (JavaScript) arhitekture na <strong>server-side rendering</strong>: svaka adresa sada već u prvom odgovoru poslužitelja vraća svoj puni sadržaj, naslove, poveznice i metapodatke. Sustav za uređivanje sadržaja (CMS) ostao je isti — sve što unesete ili izmijenite u CMS-u vidljivo je u izvornom kodu stranice u roku od nekoliko sekundi, bez ikakve dodatne akcije.</p>
+<p>Uz to su optimizirane slike i video, postavljeni ispravni statusni kodovi i preusmjeravanja, automatiziran sitemap te poslan i potvrđen u Google Search Consoleu.</p>
+
+<h2>2. Status po stavkama zahtjeva</h2>
+
+<table>
+  <tr><th style="width:10mm">Br.</th><th>Problem</th><th style="width:30mm">Status</th></tr>
+  <tr><td>T1</td><td>Google ne vidi sadržaj stranica</td><td class="status-ok">✓ Riješeno</td></tr>
+  <tr><td>T2</td><td>Naslovi stranica, opisi i oznaka jezika</td><td class="status-ok">✓ Riješeno</td></tr>
+  <tr><td>T3</td><td>Struktura naslova (H1, H2, H3)</td><td class="status-ok">✓ Riješeno</td></tr>
+  <tr><td>T4</td><td>Greška 404 za stranice koje ne postoje</td><td class="status-ok">✓ Riješeno</td></tr>
+  <tr><td>T5</td><td>Više adresa za istu stranicu i preusmjeravanja</td><td class="status-ok">✓ Riješeno*</td></tr>
+  <tr><td>T6</td><td>Sitemap.xml i robots.txt</td><td class="status-ok">✓ Riješeno</td></tr>
+  <tr><td>T7</td><td>Veličina slika i brzina stranice</td><td class="status-ok">✓ Riješeno</td></tr>
+  <tr><td>T8</td><td>Google Search Console i Analytics — pristup</td><td class="status-ok">✓ Riješeno</td></tr>
+</table>
+<p style="font-size:9pt;color:#666">* preusmjeravanja sa starih domena di-arhitekti.hr i di-statik.hr zahtijevaju akciju na Vašoj strani — vidi poglavlje 6.</p>
+
+<div class="pagebreak"></div>
+<h2>3. Pojedinosti po stavkama</h2>
+
+<div class="ticket">
+  <h3>T1 — Google ne vidi sadržaj stranica <span class="status-ok">✓</span></h3>
+  <p>Uveden je server-side rendering za sve javne stranice (naslovnica, O nama, usluge i detalji usluga, projekti i detalji projekata, novosti i članci, kontakt). Svaka adresa u prvom odgovoru poslužitelja sadrži svoj tekst, naslove, poveznice i slike.</p>
+  <p class="label">Kako provjeriti</p>
+  <p>Otvorite bilo koju stranicu → desni klik → „View Page Source": vidljiv je kompletan sadržaj. Naslovnica sada vraća ~250 KB sadržaja (prije: 7,9 KB praznog dokumenta). Alat „Provjera URL-a" u Search Consoleu prikazuje puni sadržaj.</p>
+</div>
+
+<div class="ticket">
+  <h3>T2 — Naslovi stranica, opisi i oznaka jezika <span class="status-ok">✓</span></h3>
+  <p>Svaka javna stranica ima vlastiti naslov (title), opis (meta description), canonical adresu i Open Graph oznake (naslov, opis, slika) — svi u izvornom kodu stranice. Podaci se uređuju u CMS-u (postojeća SEO polja na svakoj vrsti sadržaja); izmjena u CMS-u vidljiva je u izvornom kodu u roku od nekoliko sekundi. Hrvatska verzija označena je s <code>lang="hr"</code>, a engleska (/en) i njemačka (/de) verzija imaju vlastite adrese i hreflang oznake.</p>
+  <p class="label">Kako provjeriti</p>
+  <p>Promijenite „Meta title" bilo koje stranice u CMS-u, spremite i objavite → osvježite stranicu i pogledajte izvorni kod.</p>
+</div>
+
+<div class="ticket">
+  <h3>T3 — Struktura naslova (H1, H2, H3) <span class="status-ok">✓</span></h3>
+  <p>Svaka stranica ima točno jedan H1 s glavnom temom. Naslovi blog kartica na naslovnici više nisu H1 (sada H3), a podnaslovi unutar članaka označeni su kao H2/H3.</p>
+</div>
+
+<div class="ticket">
+  <h3>T4 — Greška 404 za stranice koje ne postoje <span class="status-ok">✓</span></h3>
+  <p>Nepostojeće adrese (npr. <code>/nepostojeca-stranica-xyz-123</code>, kao i nepostojeći projekti/članci/usluge) vraćaju status <strong>404</strong> i prikazuju stranicu s porukom i poveznicom na naslovnicu.</p>
+</div>
+
+<div class="ticket">
+  <h3>T5 — Više adresa za istu stranicu i preusmjeravanja <span class="status-ok">✓</span></h3>
+  <p>Glavna adresa je <strong>https://di-plan.hr</strong> (bez www, bez kose crte na kraju). Sve varijante trajno preusmjeravaju na glavnu adresu. Popis preusmjeravanja u poglavlju 5.</p>
+</div>
+
+<div class="ticket">
+  <h3>T6 — Sitemap.xml i robots.txt <span class="status-ok">✓</span></h3>
+  <p>Sitemap se <strong>izrađuje automatski</strong> iz CMS-a (sve javne stranice na sva tri jezika, bez duplikata), dostupan je sa statusom 200 i sam se ažurira pri svakoj izmjeni sadržaja. Robots.txt usklađen. Sitemap je poslan u Search Console i <strong>uspješno obrađen</strong> — Google je otkrio 133 stranice.</p>
+  <div class="single-img">
+    <img src="img/gsc-sitemap.gif" alt="GSC: Sitemap Success, 133 stranice">
+    <figcaption>Google Search Console: sitemap status „Success", 133 otkrivene stranice (13. 10. 2026.)</figcaption>
+  </div>
+</div>
+
+<div class="ticket">
+  <h3>T7 — Veličina slika i brzina stranice <span class="status-ok">✓</span></h3>
+  <p>Slike su komprimirane (najveće tri: 12,8 MB → 0,4 MB), poslužuju se u modernim formatima (AVIF/WebP) u veličini prilagođenoj uređaju, a slike ispod prvog ekrana učitavaju se lijeno (lazy loading). Video (16 MB) više se ne preuzima automatski — pokreće se na klik. PageSpeed rezultati prije/poslije u poglavlju 4.</p>
+</div>
+
+<div class="ticket">
+  <h3>T8 — Google Search Console i Analytics <span class="status-ok">✓</span></h3>
+  <p>Domena di-plan.hr dodana je i potvrđena u Search Consoleu (vrsta „Domena"). Sitemap je poslan i obrađen. Pristupi po alatima:</p>
+  <ul>
+    <li><strong>Search Console:</strong> dandrasek@gmail.com (Dario Andrašek) — Owner; sasa.perko7@gmail.com — Full</li>
+    <li><strong>Google Analytics 4</strong> (račun DI PLAN, property di-plan.hr): dandrasek@gmail.com — Administrator; mucakd@gmail.com — Administrator</li>
+    <li><strong>Google Tag Manager:</strong> pozivnica za administratorski pristup poslana na dandrasek@gmail.com — aktivira se prihvaćanjem</li>
+  </ul>
+  <div class="single-img">
+    <img src="img/gsc-korisnici.png" alt="GSC korisnici i razine pristupa">
+    <figcaption>Search Console — korisnici i razine pristupa</figcaption>
+  </div>
+  <div class="single-img">
+    <img src="img/ga4-korisnici.png" alt="GA4 korisnici i razine pristupa">
+    <figcaption>Google Analytics 4 — korisnici i razine pristupa (Account access management)</figcaption>
+  </div>
+</div>
+
+<div class="pagebreak"></div>
+<h2>4. Rezultati mjerenja brzine (Google PageSpeed / Lighthouse)</h2>
+
+<table>
+  <tr><th>Mjera (mobilno)</th><th>Prije</th><th>Poslije</th></tr>
+  <tr><td>Ocjena izvedbe</td><td>61</td><td><strong>93</strong></td></tr>
+  <tr><td>Largest Contentful Paint</td><td>21,4 s</td><td><strong>1,7 s</strong></td></tr>
+  <tr><td>First Contentful Paint</td><td>4,9 s</td><td><strong>1,1 s</strong></td></tr>
+  <tr><td>SEO ocjena</td><td>92</td><td><strong>100</strong></td></tr>
+</table>
+
+<table>
+  <tr><th>Mjera (računalo)</th><th>Prije</th><th>Poslije</th></tr>
+  <tr><td>Ocjena izvedbe</td><td>64</td><td><strong>97</strong></td></tr>
+  <tr><td>Largest Contentful Paint</td><td>1,6 s</td><td><strong>0,5 s</strong></td></tr>
+  <tr><td>Cumulative Layout Shift (stabilnost)</td><td>0,916</td><td><strong>0</strong></td></tr>
+  <tr><td>Pristupačnost</td><td>79</td><td><strong>93</strong></td></tr>
+  <tr><td>Najbolji primjeri iz prakse</td><td>69</td><td><strong>100</strong></td></tr>
+  <tr><td>SEO ocjena</td><td>92</td><td><strong>100</strong></td></tr>
+</table>
+
+<div class="imgrow">
+  <figure><img src="img/lighthouse-prije.png" alt="Lighthouse prije"><figcaption>Prije ispravka (stara stranica)</figcaption></figure>
+  <figure><img src="img/lighthouse-poslije.png" alt="Lighthouse poslije"><figcaption>Poslije ispravka (nova stranica)</figcaption></figure>
+</div>
+
+<div class="pagebreak"></div>
+<h2>5. Popis preusmjeravanja (301/308)</h2>
+
+<table>
+  <tr><th>Stara adresa</th><th>Nova adresa</th></tr>
+  <tr><td>http://di-plan.hr/* (bez SSL-a)</td><td>https://di-plan.hr/*</td></tr>
+  <tr><td>https://www.di-plan.hr/*</td><td>https://di-plan.hr/*</td></tr>
+  <tr><td>https://di-plan.hr/*/ (kosa crta na kraju)</td><td>https://di-plan.hr/*</td></tr>
+  <tr><td>/about</td><td>/about-us</td></tr>
+  <tr><td>/services</td><td>/service</td></tr>
+  <tr><td>/projects</td><td>/project</td></tr>
+  <tr><td>/blog i /blog/[članak]</td><td>/news i /news/[članak]</td></tr>
+</table>
+
+<div class="note">
+  <strong>Stare domene di-arhitekti.hr i di-statik.hr:</strong> domene su registrirane i aktivne, ali kod registrara nemaju postavljene DNS poslužitelje pa trenutno nisu dostupne nikome (ni Googleu). Za uspostavu 301 preusmjeravanja potreban je pristup registraru tih domena (nisu na istom hosting računu kao di-plan.hr). Čim nam omogućite pristup ili postavite DNS prema uputama koje ćemo poslati, preusmjeravanja po pojedinačnim adresama bit će aktivna isti dan.
+</div>
+
+<h2>6. Potrebne akcije na Vašoj strani</h2>
+<ul>
+  <li><strong>Stare domene:</strong> provjeriti kod koga su registrirane di-arhitekti.hr i di-statik.hr i omogućiti postavljanje DNS zapisa (vidi gore).</li>
+  <li><strong>Chatbot (Chatnav):</strong> chat widget na stranici pokušava se spojiti na adresu <code>diarhitekti.chatnav.net</code> koja više ne postoji, što uzrokuje greške u pregledniku i blago usporava stranicu. Molimo kontaktirajte Chatnav da ažuriraju konfiguraciju na novu domenu.</li>
+  <li><strong>Pravne stranice:</strong> rubrike Uvjeti korištenja, Pravila kolačića i Pravila privatnosti postoje u CMS-u, ali nikad nisu bile ispunjene sadržajem. Čim unesete i objavite tekstove, stranice se automatski aktiviraju (poveznice u podnožju već postoje).</li>
+  <li><strong>SEO opisi:</strong> dio projekata (16 od 53) i članaka (2 od 8) nema ispunjena SEO polja u CMS-u — za njih se koristi automatska zamjena (naslov + sažetak). Preporučamo dopuniti.</li>
+</ul>
+
+<h2>7. Dodatna poboljšanja izvan opsega zahtjeva</h2>
+<ul>
+  <li>Pristupnica (cookie banner) redizajnirana i prevedena na sva tri jezika, usklađena s Google Consent Mode v2 standardom; postavke kolačića dostupne iz podnožja.</li>
+  <li>Mobilni izbornik redizajniran (čitljivost, poziv na akciju, kontakt podaci) — prije/poslije:</li>
+</ul>
+<div class="imgrow" style="max-width:120mm;margin-left:auto;margin-right:auto">
+  <figure><img src="img/izbornik-prije.png" alt="Izbornik prije"><figcaption>Prije</figcaption></figure>
+  <figure><img src="img/izbornik-poslije.png" alt="Izbornik poslije"><figcaption>Poslije</figcaption></figure>
+</div>
+<ul>
+  <li>Sigurnosni popravak: pristupni ključ CMS-a za kontakt formu više nije javno vidljiv u kodu stranice (premješten na poslužitelj).</li>
+  <li>Dodana <code>llms.txt</code> datoteka — strojno čitljiv opis stranice za AI tražilice i agente, generira se automatski iz CMS-a.</li>
+  <li>Pristupačnost: ispravljena struktura poveznica, opisi slika, nazivi kontrola i veličine dodirnih ciljeva.</li>
+</ul>
+
+<div class="footer">
+  Izvješće pripremio: Bruno Čukić · Ninefold.eu · 14. 10. 2026. · Stranica je u produkciji na https://di-plan.hr — svaku stavku možete provjeriti prema kriterijima iz Vašeg zahtjeva od 12. 10. 2026.
+</div>
+
+</div>
+</body>
+</html>
