@@ -1,5 +1,7 @@
+"use client";
 
-import { Link } from 'react-router-dom'
+
+import Link from "./LocalizedLink";
 
 
 const Button = ({ text, to }) => {

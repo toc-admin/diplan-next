@@ -1,3 +1,5 @@
+"use client";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
@@ -15,54 +17,41 @@ import "swiper/css/mousewheel";
 import { ROUTES } from "../config/routes";
 import { useLocale } from "../config/localeContext";
 import MixedTitle from "../components/MixedTitle";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import constantsExport from "../config/constants";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { STRAPI_URL } from "../lib/strapi";
+import Link from "../components/LocalizedLink";
 
-const API_PATH = constantsExport.API_PATH;
-const IMG_PATH = constantsExport.IMG_PATH;
-
-const OurProjects = ({ id, content, filter }) => {
+// Initial projects arrive server-rendered via props (SEO requirement T1);
+// the client only refetches when the user switches the filter.
+const OurProjects = ({ id, content, filter, initialProjects = null }) => {
   const { locale } = useLocale();
-  const [projects, setProjects] = useState(null);
-  const [filterica, setFilterica] = useState(filter);
-  const [loading, setLoading] = useState(true);
-
-  // Update filterica when filter prop changes
-  useEffect(() => {
-    setFilterica(filter);
-  }, [filter]);
+  const [projects, setProjects] = useState(initialProjects);
+  const initialFilter = useRef(filter);
 
   useEffect(() => {
-    const fetchProjects = async (page = 1, append = false) => {
+    if (filter === initialFilter.current && initialProjects) {
+      setProjects(initialProjects);
+      return;
+    }
+
+    const controller = new AbortController();
+    const fetchProjects = async () => {
       try {
-        let url = `${API_PATH}/api/projects?locale=${locale}&populate=*&sort=sortirniBroj:asc&pagination[page]=${page}&pagination[pageSize]=6`;
-        
-        // Add filter to API call if not 'all'
-        if (filterica !== 'all') {
-          url += `&filters[whichService][$eq]=${filterica}`;
+        let url = `${STRAPI_URL}/api/projects?locale=${locale}&populate=*&sort=sortirniBroj:asc&pagination[page]=1&pagination[pageSize]=6`;
+        if (filter !== "all") {
+          url += `&filters[whichService][$eq]=${filter}`;
         }
-        
-        const res = await axios.get(url);
-        const newProjects = res.data.data;
-        
-        if (append) {
-          // Append to existing projects (load more)
-          setProjects(prevProjects => [...prevProjects, ...newProjects]);
-        } else {
-          // Replace projects (new filter or initial load)
-          setProjects(newProjects);
-        }
-        
+        const res = await fetch(url, { signal: controller.signal });
+        const json = await res.json();
+        setProjects(json.data);
       } catch (err) {
-        console.error("Error fetching projects:", err);
-        throw err;
+        if (err.name !== "AbortError") console.error("Error fetching projects:", err);
       }
     };
 
     fetchProjects();
-  }, [locale, filterica]);
+    return () => controller.abort();
+  }, [locale, filter, initialProjects]);
 
   return (
     <div className="flex items-center justify-center">

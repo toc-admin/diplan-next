@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "./LocalizedLink";
 import LogoFooter from "../assets/logo/DiPlanLogo";
 import { ROUTES } from "../config/routes";
 import { useLocale } from "../config/localeContext";
@@ -46,8 +48,8 @@ const Footer = ({ show }) => {
   return (
     <>
       <div className="flex items-end justify-between -mt-32">
-        <img className="w-10 sm:w-10 md:w-10 lg:w-12 xl:w-20 2xl:w-20 h-10 sm:h-10 md:h-10 lg:h-12 xl:h-20 2xl:h-20" src={leftBottom} />
-        <img className="w-10 sm:w-10 md:w-10 lg:w-12 xl:w-20 2xl:w-20 h-10 sm:h-10 md:h-10 lg:h-12 xl:h-20 2xl:h-20" src={rightBottom} />
+        <img className="w-10 sm:w-10 md:w-10 lg:w-12 xl:w-20 2xl:w-20 h-10 sm:h-10 md:h-10 lg:h-12 xl:h-20 2xl:h-20" src={leftBottom.src} />
+        <img className="w-10 sm:w-10 md:w-10 lg:w-12 xl:w-20 2xl:w-20 h-10 sm:h-10 md:h-10 lg:h-12 xl:h-20 2xl:h-20" src={rightBottom.src} />
       </div>
       <div className="bg-brand-color pb-20 pt-32 md:px-44 px-4 flex flex-col items-center justify-between">
         <div className="w-full max-w-[1400px] flex flex-col items-start justify-between">

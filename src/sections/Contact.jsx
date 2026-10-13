@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "../components/LocalizedLink";
 import MixedTitle from "../components/MixedTitle";
 import { ROUTES } from "../config/routes";
 

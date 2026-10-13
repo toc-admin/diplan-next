@@ -1,3 +1,5 @@
+"use client";
+
 const MixedTitle = ({ text, stil, number }) => {
     if (!text) return null;
   

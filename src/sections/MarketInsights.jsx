@@ -1,35 +1,10 @@
-import Button from "../components/Button";
+"use client";
+
 import BlogPost from "../components/BlogPost";
-import { ROUTES } from "../config/routes";
-import axios from "axios";
-import { useState, useEffect } from "react";
-import constantsExport from "../config/constants";
-import { useLocale } from "../config/localeContext";
 
-const API_PATH = constantsExport.API_PATH;
-
-const MarketInsights = () => {
-  const { locale } = useLocale();
-  const [blogs, setBlogs] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const res = await axios.get(
-          `${API_PATH}/api/blogs?locale=${locale}&populate=*&pagination[limit]=3&sort=createdAt:desc`
-        );
-        setBlogs(res.data.data);
-        setLoading(false);
-      } catch (err) {
-        console.error("Error fetching blogs:", err);
-        setLoading(false);
-      }
-    };
-
-    fetchContent();
-  }, [locale]);
-
+// Blogs are fetched server-side and passed in, so the markup is in the
+// initial HTML response (SEO requirement T1).
+const MarketInsights = ({ blogs }) => {
   return (
     <div className="flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 xl:px-44">
       <div className="w-full max-w-[1400px] bg-white py-16 sm:py-20 md:py-24 lg:py-32">
@@ -37,7 +12,7 @@ const MarketInsights = () => {
           {blogs?.map((blog, index) => (
             <BlogPost
               key={blog.id || index}
-              image={blog.coverImage.url}
+              image={blog.coverImage?.url}
               name={blog.Title}
               shortDescription={blog.excerpt}
               id={blog.id}

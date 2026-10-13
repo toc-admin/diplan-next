@@ -1,20 +1,20 @@
+"use client";
+
 import { useState } from "react";
 import DiPlanLogo from "../assets/logo/DiPlanLogo";
 import { ROUTES } from "../config/routes";
-import { Link } from "react-router-dom";
+import Link from "./LocalizedLink";
 import { Spiral as Hamburger } from "hamburger-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocale } from "../config/localeContext";
 import LocaleSwitcher from "./LocaleSwitcher";
-import { useMatch } from "react-router-dom";
-
 const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
   const locale = useLocale();
   const [isServicesShown, setIsServicesShown] = useState(false);
 
-  // Check for dynamic routes
-  const isProjectDetailPage = useMatch("/project/:slug");
-  const isServiceDetailPage = useMatch("/service/:slug");
+  // Check for dynamic routes (location is the bare path without lang prefix)
+  const isProjectDetailPage = /^\/project\/.+/.test(location);
+  const isServiceDetailPage = /^\/service\/.+/.test(location);
 
   const serviceSlug = {
     "arhitektonsko-projektiranje": {

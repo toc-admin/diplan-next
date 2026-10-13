@@ -1,5 +1,7 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "./LocalizedLink";
 import { ROUTES } from "../config/routes"
 import { useLocale } from "../config/localeContext";
 

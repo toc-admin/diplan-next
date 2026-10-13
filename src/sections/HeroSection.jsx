@@ -1,9 +1,11 @@
+"use client";
+
 import { motion } from "framer-motion";
 import heroImg from "../assets/images/hero-image.webp";
 import Button from "../components/Button";
 import { ROUTES } from "../config/routes";
 import ReactMarkdown from "react-markdown";
-import { Link } from "react-router-dom";
+import Link from "../components/LocalizedLink";
 
 const containerVars = {
   initial: {
@@ -58,7 +60,7 @@ const HeroSection = ({ id, content }) => {
         style={{
           backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 70%), 
                             linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%), 
-                            url(${heroImg})`,
+                            url(${heroImg.src})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
@@ -134,7 +136,7 @@ const HeroSection = ({ id, content }) => {
         <p
           className="text-white font-semibold text-sm sm:text-md md:text-base lg:text-2xl max-w-full sm:max-w-[600px] md:max-w-[700px] lg:max-w-[810px] leading-relaxed text-left"
           dangerouslySetInnerHTML={{
-            __html: content?.secondaryHeroText.replace(/\n/g, "<br />"),
+            __html: (content?.secondaryHeroText || "").replace(/\n/g, "<br />"),
           }}
         />
       </div>

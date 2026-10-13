@@ -1,33 +1,13 @@
-import { useRef, useState, useEffect } from "react";
+"use client";
+
 import MixedTitle from "../components/MixedTitle";
 import { useLocale } from "../config/localeContext";
-import constantsExport from "../config/constants";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import Link from "../components/LocalizedLink";
 import { ROUTES } from "../config/routes";
 
-const API_PATH = constantsExport.API_PATH;
-const IMG_PATH = constantsExport.IMG_PATH;
-
-const Services = ({ id, content }) => {
+// Services are fetched server-side and passed in (SEO requirement T1).
+const Services = ({ id, content, services = [] }) => {
   const { locale } = useLocale();
-  const [services, setServices] = useState([]);
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      try {
-        const res = await axios.get(
-          `${API_PATH}/api/service-single-pages?locale=${locale}&populate=*&sort=createdAt:asc`
-        );
-        setServices(res.data.data);
-      } catch (err) {
-        console.error("Error fetching services:", err);
-      }
-    };
-
-    fetchContent();
-  }, [locale]);
 
   const renderCard = (service, type) => {
     if (!service) return null;

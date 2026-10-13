@@ -1,3 +1,5 @@
+"use client";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
@@ -33,7 +35,7 @@ const Reviews = ({ id, content }) => {
           <p className="text-brand-color text-sm sm:text-base md:text-lg max-w-full xl:max-w-[400px] leading-7 sm:leading-8 md:leading-9 tracking-wide">
             {content?.revNumOfUsers}
           </p>
-          <img src={rev} className="w-auto h-auto max-w-[200px] sm:max-w-[250px] md:max-w-full" alt="Reviews" />
+          <img src={rev.src} className="w-auto h-auto max-w-[200px] sm:max-w-[250px] md:max-w-full" alt="Reviews" />
           <p className="text-light-text text-xs sm:text-sm max-w-full xl:max-w-[400px] leading-6 sm:leading-7 md:leading-9 tracking-wide -mt-2 sm:-mt-3 md:-mt-4">
             Based on 146 reviews
           </p>

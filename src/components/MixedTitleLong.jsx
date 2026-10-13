@@ -1,3 +1,5 @@
+"use client";
+
 const MixedTitleLong = ({ text, stil }) => {
     if (!text) return null;
   

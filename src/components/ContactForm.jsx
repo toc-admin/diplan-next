@@ -1,9 +1,8 @@
+"use client";
+
 import { useState } from "react";
 import { useLocale } from "../config/localeContext";
-import axios from "axios";
-import constantsExport from "../config/constants";
 
-const API_PATH = constantsExport.API_PATH;
 
 export default function ContactForm() {
   const { locale } = useLocale();
@@ -82,21 +81,11 @@ export default function ContactForm() {
     setStatus(currentText.statusSending);
 
     try {
-      const res = await axios.post(
-        `${API_PATH}/api/contact-forms`,
-        {
-          data: {
-            ...formData,
-          },
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer 285ab22a012ecf792a1319568a798e10a921df737277b23187c402c61f8d6f30ff1965d960e89f744111c3a63297dc0eed90f92248eef3ef423266def071ee4f155d8eb26f016d3d38dbbccf84e92383dc6ab0c82afe2517be612e48109cb44f52a637c7ae20f5520ff93047a41aaa2dc9a23b6e6129236fa0a5dcb24002277e",
-          },
-        }
-      );
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
 
       if (res.status === 201) {
         setStatus(currentText.statusSuccess);

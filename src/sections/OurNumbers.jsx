@@ -1,6 +1,8 @@
+"use client";
+
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "../components/LocalizedLink";
 import { ROUTES } from "../config/routes";
 
 const OurNumbers = ({ id, content }) => {
