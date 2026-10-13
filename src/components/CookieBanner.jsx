@@ -1,9 +1,85 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useLocale } from "../config/localeContext";
 import { DEFAULT_PREFS, getConsent, saveConsent, applyConsentToGTM } from "../utils/consent";
 
+const TEXT = {
+  "hr-HR": {
+    title: ["Vaša privatnost,", "vaš izbor."],
+    body: "Kolačiće koristimo za osnovne funkcije stranice te — uz vašu privolu — za analitiku i marketing.",
+    acceptAll: "Prihvati sve",
+    rejectAll: "Odbij sve",
+    preferences: "Postavke",
+    prefsTitle: "Postavke kolačića",
+    save: "Spremi postavke",
+    back: "Natrag",
+    alwaysOn: "Uvijek uključeno",
+    groups: {
+      necessary: ["Nužni", "Potrebni za osnovni rad stranice."],
+      analytics: ["Analitika", "Pomažu nam razumjeti kako koristite stranicu (GA4)."],
+      marketing: ["Marketing", "Oglašavanje i remarketing (Google Ads, Meta)."],
+    },
+  },
+  en: {
+    title: ["Your privacy,", "your choice."],
+    body: "We use cookies for core site features and — with your consent — for analytics and marketing.",
+    acceptAll: "Accept all",
+    rejectAll: "Reject all",
+    preferences: "Preferences",
+    prefsTitle: "Cookie preferences",
+    save: "Save preferences",
+    back: "Back",
+    alwaysOn: "Always on",
+    groups: {
+      necessary: ["Necessary", "Required for the site to work."],
+      analytics: ["Analytics", "Help us understand how the site is used (GA4)."],
+      marketing: ["Marketing", "Advertising and remarketing (Google Ads, Meta)."],
+    },
+  },
+  "de-DE": {
+    title: ["Ihre Privatsphäre,", "Ihre Wahl."],
+    body: "Wir verwenden Cookies für Grundfunktionen der Website und — mit Ihrer Einwilligung — für Analyse und Marketing.",
+    acceptAll: "Alle akzeptieren",
+    rejectAll: "Alle ablehnen",
+    preferences: "Einstellungen",
+    prefsTitle: "Cookie-Einstellungen",
+    save: "Einstellungen speichern",
+    back: "Zurück",
+    alwaysOn: "Immer aktiv",
+    groups: {
+      necessary: ["Notwendig", "Erforderlich für den Betrieb der Website."],
+      analytics: ["Analyse", "Helfen uns zu verstehen, wie die Website genutzt wird (GA4)."],
+      marketing: ["Marketing", "Werbung und Remarketing (Google Ads, Meta)."],
+    },
+  },
+};
+
+const Toggle = ({ checked, disabled, onChange, label }) => (
+  <button
+    type="button"
+    role="switch"
+    aria-checked={checked}
+    aria-label={label}
+    disabled={disabled}
+    onClick={() => onChange?.(!checked)}
+    className={`relative h-7 w-12 shrink-0 rounded-full transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-color ${
+      checked ? "bg-cta-color" : "bg-dark-text/15"
+    } ${disabled ? "opacity-60 cursor-default" : "cursor-pointer"}`}
+  >
+    <span
+      className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-all duration-200 ${
+        checked ? "left-6" : "left-1"
+      }`}
+    />
+  </button>
+);
+
 const CookieBanner = () => {
+  const { locale } = useLocale();
+  const t = TEXT[locale] || TEXT["hr-HR"];
+
   const [visible, setVisible] = useState(false);
   const [prefs, setPrefs] = useState(DEFAULT_PREFS);
   const [showPrefs, setShowPrefs] = useState(false);
@@ -25,100 +101,113 @@ const CookieBanner = () => {
     };
   }, []);
 
-  const acceptAll = () => {
-    const next = { necessary: true, analytics: true, marketing: true };
+  const close = (next) => {
     saveConsent(next);
     applyConsentToGTM(next);
-    setVisible(false);
-  };
-
-  const rejectAll = () => {
-    const next = { necessary: true, analytics: false, marketing: false };
-    saveConsent(next);
-    applyConsentToGTM(next);
-    setVisible(false);
-  };
-
-  const savePreferences = () => {
-    saveConsent(prefs);
-    applyConsentToGTM(prefs);
     setVisible(false);
     setShowPrefs(false);
   };
 
-  if (!visible) return null;
+  const acceptAll = () => close({ necessary: true, analytics: true, marketing: true });
+  const rejectAll = () => close({ necessary: true, analytics: false, marketing: false });
+  const savePreferences = () => close(prefs);
 
   return (
-    <div className="fixed inset-x-0 md:bottom-0 bottom-60 z-[9999] mx-4">
-      <div className="mx-auto max-w-4xl rounded-2xl bg-white p-8 shadow-2xl">
-        {!showPrefs ? (
-          <div className="flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
-            <p className="text-base text-dark-text max-w-md">
-              We use cookies for basic functionality, analytics and marketing. You can accept, reject, or set preferences.
-            </p>
-            <div className="flex md:flex-row flex-col items-center justify-center gap-2 w-full">
-              <button onClick={() => setShowPrefs(true)} className="rounded-lg text-sm border px-4 py-2">
-                Preferences
-              </button>
-              <button onClick={rejectAll} className="rounded-lg text-sm border px-4 py-2">
-                Reject all
-              </button>
-              <button onClick={acceptAll} className="rounded-lg text-sm bg-green-600 px-4 py-2 text-white">
-                Accept all
-              </button>
-            </div>
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          initial={{ y: 48, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 48, opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          role="dialog"
+          aria-label={t.prefsTitle}
+          className="fixed inset-x-0 bottom-4 z-[9999] px-4"
+        >
+          <div className="mx-auto max-w-3xl overflow-hidden rounded-[24px] bg-white shadow-[0_24px_64px_-16px_rgba(10,50,100,0.45)] ring-1 ring-brand-color/10">
+            {!showPrefs ? (
+              <div className="flex flex-col gap-5 p-6 sm:p-8 md:flex-row md:items-center md:justify-between">
+                <div className="max-w-md">
+                  <p className="text-xl font-black uppercase leading-tight text-brand-color">
+                    {t.title[0]}{" "}
+                    <span className="italic font-normal">{t.title[1]}</span>
+                  </p>
+                  <p className="mt-2 text-sm font-medium leading-relaxed text-light-text/80">
+                    {t.body}
+                  </p>
+                </div>
+                <div className="flex w-full flex-col gap-2 md:w-auto md:shrink-0 md:items-end">
+                  <button
+                    onClick={acceptAll}
+                    className="w-full rounded-full bg-cta-color px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.03] md:w-auto"
+                  >
+                    {t.acceptAll}
+                  </button>
+                  <button
+                    onClick={rejectAll}
+                    className="w-full rounded-full border-1 border-solid border-brand-color/30 px-6 py-3 text-sm font-semibold text-brand-color transition-colors duration-200 hover:bg-brand-color/5 md:w-auto"
+                  >
+                    {t.rejectAll}
+                  </button>
+                  <button
+                    onClick={() => setShowPrefs(true)}
+                    className="w-full px-2 py-1 text-sm font-semibold text-brand-color/70 underline underline-offset-4 transition-colors hover:text-brand-color md:w-auto"
+                  >
+                    {t.preferences}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="p-6 sm:p-8">
+                <p className="text-xl font-black uppercase leading-tight text-brand-color">
+                  {t.prefsTitle}
+                </p>
+                <div className="mt-5 flex flex-col gap-2">
+                  {["necessary", "analytics", "marketing"].map((key) => (
+                    <div
+                      key={key}
+                      className="flex items-center justify-between gap-4 rounded-2xl bg-card-bg p-4"
+                    >
+                      <div>
+                        <p className="font-semibold text-brand-color">
+                          {t.groups[key][0]}
+                          {key === "necessary" && (
+                            <span className="ml-2 rounded-full bg-brand-color/10 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-brand-color/80">
+                              {t.alwaysOn}
+                            </span>
+                          )}
+                        </p>
+                        <p className="mt-0.5 text-sm text-light-text/70">{t.groups[key][1]}</p>
+                      </div>
+                      <Toggle
+                        label={t.groups[key][0]}
+                        checked={key === "necessary" ? true : prefs[key]}
+                        disabled={key === "necessary"}
+                        onChange={(v) => setPrefs({ ...prefs, [key]: v })}
+                      />
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
+                  <button
+                    onClick={() => setShowPrefs(false)}
+                    className="rounded-full border-1 border-solid border-brand-color/30 px-6 py-3 text-sm font-semibold text-brand-color transition-colors duration-200 hover:bg-brand-color/5"
+                  >
+                    {t.back}
+                  </button>
+                  <button
+                    onClick={savePreferences}
+                    className="rounded-full bg-cta-color px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 hover:scale-[1.03]"
+                  >
+                    {t.save}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Cookie Preferences</h3>
-            <div className="grid gap-3">
-              <label className="flex items-center justify-between rounded-xl border border-dark-text/20 p-3">
-                <div>
-                  <div className="font-medium">Necessary</div>
-                  <div className="text-sm text-neutral-500">Always on – required for basic site features.</div>
-                </div>
-                <input type="checkbox" checked readOnly className="h-4 w-4" />
-              </label>
-
-              <label className="flex items-center justify-between rounded-xl border border-dark-text/20 p-3">
-                <div>
-                  <div className="font-medium">Analytics</div>
-                  <div className="text-sm text-neutral-500">Helps us improve the site (GA4).</div>
-                </div>
-                <input
-                  type="checkbox"
-                  className="h-4 w-4"
-                  checked={prefs.analytics}
-                  onChange={(e) => setPrefs({ ...prefs, analytics: e.target.checked })}
-                />
-              </label>
-
-              <label className="flex items-center justify-between rounded-xl border border-dark-text/20 p-3">
-                <div>
-                  <div className="font-medium">Marketing</div>
-                  <div className="text-sm text-neutral-500">Ads & remarketing (Google Ads, Meta Pixel).</div>
-                </div>
-                <input
-                  type="checkbox"
-                  className="h-4 w-4"
-                  checked={prefs.marketing}
-                  onChange={(e) => setPrefs({ ...prefs, marketing: e.target.checked })}
-                />
-              </label>
-            </div>
-
-            <div className="flex justify-end gap-2">
-              <button onClick={() => setShowPrefs(false)} className="rounded-lg border px-4 py-2">
-                Back
-              </button>
-              <button onClick={savePreferences} className="rounded-lg bg-black px-4 py-2 text-white dark:bg-white dark:text-black">
-                Save preferences
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
