@@ -1,121 +1,168 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "./LocalizedLink";
-import { ROUTES } from "../config/routes"
+import { ROUTES } from "../config/routes";
 import { useLocale } from "../config/localeContext";
 
 const menuVars = {
-  initial: {
-    scaleY: 0,
-  },
+  initial: { y: "100%" },
   animate: {
-    scaleY: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.12, 0, 0.39, 0],
-    },
+    y: 0,
+    transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
   },
   exit: {
-    scaleY: 0,
-    transition: {
-      delay: 0.5,
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    y: "100%",
+    transition: { delay: 0.25, duration: 0.4, ease: [0.4, 0, 0.2, 1] },
   },
 };
+
 const containerVars = {
   initial: {
-    transition: {
-      staggerChildren: 0.09,
-      staggerDirection: -1,
-    },
+    transition: { staggerChildren: 0.06, staggerDirection: -1 },
   },
   open: {
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.09,
-      staggerDirection: 1,
-    },
+    transition: { delayChildren: 0.15, staggerChildren: 0.06, staggerDirection: 1 },
+  },
+};
+
+const linkVars = {
+  initial: {
+    y: "60%",
+    opacity: 0,
+    transition: { duration: 0.3, ease: [0.37, 0, 0.63, 1] },
+  },
+  open: {
+    y: 0,
+    opacity: 1,
+    transition: { ease: [0, 0.55, 0.45, 1], duration: 0.55 },
+  },
+};
+
+const TEXT = {
+  "hr-HR": {
+    links: [
+      ["Naslovna", ROUTES.HOME],
+      ["O nama", ROUTES.ABOUT_US],
+      ["Projekti", ROUTES.PROJECT],
+      ["Usluge", ROUTES.SERVICE],
+      ["Novosti", ROUTES.BLOG],
+      ["Kontakt", ROUTES.CONTACT],
+    ],
+    cta: "Započni svoj projekt",
+  },
+  en: {
+    links: [
+      ["Home", ROUTES.HOME],
+      ["About us", ROUTES.ABOUT_US],
+      ["Projects", ROUTES.PROJECT],
+      ["Services", ROUTES.SERVICE],
+      ["News", ROUTES.BLOG],
+      ["Contact", ROUTES.CONTACT],
+    ],
+    cta: "Start your project",
+  },
+  "de-DE": {
+    links: [
+      ["Startseite", ROUTES.HOME],
+      ["Über uns", ROUTES.ABOUT_US],
+      ["Projekte", ROUTES.PROJECT],
+      ["Leistungen", ROUTES.SERVICE],
+      ["Nachrichten", ROUTES.BLOG],
+      ["Kontakt", ROUTES.CONTACT],
+    ],
+    cta: "Starte dein Projekt",
   },
 };
 
 const MobileMenu = ({ closeMenu }) => {
+  const { locale } = useLocale();
+  const t = TEXT[locale] || TEXT["hr-HR"];
 
-  const locale = useLocale();
-
-  const navLinks = [
-    { title: (locale.locale === "hr-HR" ? "Naslovna" : locale.locale === "en" ? "Home" : "Startseite"), href: ROUTES.HOME },
-    { title: (locale.locale === "hr-HR" ? "O nama" : locale.locale === "en" ? "About Us" : "Über uns"), href: ROUTES.ABOUT_US },
-    { title: (locale.locale === "hr-HR" ? "Projekti" : locale.locale === "en" ? "Projects" : "Projekte"), href: ROUTES.PROJECT },
-    { title: (locale.locale === "hr-HR" ? "Usluge" : locale.locale === "en" ? "Services" : "Leistungen"), href: ROUTES.SERVICE },
-    { title: (locale.locale === "hr-HR" ? "Kontakt" : locale.locale === "en" ? "Contact" : "Kontakt"), href: ROUTES.CONTACT },
-    { title: (locale.locale === "hr-HR" ? "Novosti" : locale.locale === "en" ? "News" : "Nachricht"), href: ROUTES.BLOG },
-  ];
+  // Lock page scroll while the menu is open.
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
 
   return (
     <motion.div
-        variants={menuVars}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-        style={{ zIndex: 9999}}
-        className="fixed left-0 bottom-0 h-[70%] w-full rounded-t-[40px] header-box origin-bottom dark:bg-background p-10 padding-x py-6 z-100"
-      >
-        <div className="flex h-full flex-col">
-          <div className="flex justify-between">
-          </div>
-          <motion.div
-            variants={containerVars}
-            initial="initial"
-            animate="open"
-            exit="initial"
-            className="flex flex-col h-full justify-center font-clashdisplay items-center gap-4 "
-          >
-            {navLinks.map((link, index) => {
-              return (
-                <div key={index} className="overflow-hidden">
-                  <MobileNavLink
-                    title={link.title}
-                    href={link.href}
-                    closeMobMenu={closeMenu}
-                  />
-                </div>
-              );
-            })}
-          </motion.div>
-        </div>
-      </motion.div>
-  )
-}
-
-export default MobileMenu
-
-const MobileNavLink = ({ title, href, closeMobMenu }) => {
-  return (
-    <motion.div
-      variants={mobileLinkVars}
-      className="md:text-8xl text-4xl uppercase text-text-dark clash dark:text-text font-black"
+      variants={menuVars}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      role="dialog"
+      aria-label="Izbornik"
+      style={{ zIndex: 998 }}
+      className="fixed inset-0 bg-brand-color flex flex-col"
     >
-      <Link onClick={closeMobMenu}  to={href}>{title}</Link>
+      {/* dekorativni "arhitektonski" raster u pozadini */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.06] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, white 1px, transparent 1px), linear-gradient(to bottom, white 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
+
+      <motion.nav
+        variants={containerVars}
+        initial="initial"
+        animate="open"
+        exit="initial"
+        className="relative flex flex-col justify-center flex-1 gap-1 px-8 pt-28 pb-4"
+      >
+        {t.links.map(([title, href], i) => (
+          <div key={href} className="overflow-hidden">
+            <motion.div variants={linkVars} className="flex items-baseline gap-4">
+              <span className="text-white/30 text-sm font-semibold tabular-nums w-7 shrink-0">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <Link
+                onClick={closeMenu}
+                to={href}
+                className="text-white text-4xl sm:text-5xl font-black uppercase leading-[1.35] tracking-tight hover:text-cta-color transition-colors"
+              >
+                {title}
+              </Link>
+            </motion.div>
+          </div>
+        ))}
+      </motion.nav>
+
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0, transition: { delay: 0.45, duration: 0.4 } }}
+        exit={{ opacity: 0, transition: { duration: 0.2 } }}
+        className="relative px-8 pb-10 flex flex-col gap-5"
+      >
+        <div className="flex items-center justify-between pr-24">
+          <a href="mailto:upiti@di-plan.hr" className="text-white/70 text-sm font-semibold">
+            upiti@di-plan.hr
+          </a>
+          <div className="flex gap-4 text-white/70 text-sm font-semibold">
+            <a href="https://www.instagram.com/di__plan/" target="_blank" rel="noopener noreferrer">
+              Instagram
+            </a>
+            <a href="https://www.linkedin.com/company/di-plan/" target="_blank" rel="noopener noreferrer">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+        <Link onClick={closeMenu} to={ROUTES.CONTACT} className="w-full">
+          <span className="flex items-center justify-center bg-cta-color text-white rounded-full px-6 py-4 font-semibold text-lg">
+            {t.cta}
+          </span>
+        </Link>
+      </motion.div>
     </motion.div>
   );
 };
 
-const mobileLinkVars = {
-  initial: {
-    y: "30vh",
-    transition: {
-      duration: 0.5,
-      ease: [0.37, 0, 0.63, 1],
-    },
-  },
-  open: {
-    y: 0,
-    transition: {
-      ease: [0, 0.55, 0.45, 1],
-      duration: 0.7,
-    },
-  },
-};
+export default MobileMenu;

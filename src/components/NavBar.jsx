@@ -256,10 +256,10 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
         </div>
 
         <div className="flex items-center justify-center gap-4">
-          <Link to={ROUTES.CONTACT}>
-            <span
-              className={`bg-cta-color text-white rounded-full px-6 py-4 font-semibold xl:flex hidden`}
-            >
+          {/* hidden klasa mora biti na samom Linku — inače prazan <a> ostaje
+              u DOM-u na mobitelu i pada a11y "discernible text" provjeru */}
+          <Link to={ROUTES.CONTACT} className="xl:flex hidden">
+            <span className="bg-cta-color text-white rounded-full px-6 py-4 font-semibold flex">
               {locale.locale === "hr-HR" && "Započni svoj projekt"}
               {locale.locale === "en" && "Start your project"}
               {locale.locale === "de-DE" && "Starte dein Projekt"}
@@ -272,6 +272,7 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
               toggled={isOpen}
               toggle={setOpen}
               direction="right"
+              label={isOpen ? "Zatvori izbornik" : "Otvori izbornik"}
               color={scrollY > 2000 || location !== "/" ? "#000000" : "#FFFFFF"}
             />
           </div>

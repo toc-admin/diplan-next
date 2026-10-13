@@ -59,11 +59,11 @@ const SiteChrome = () => {
   return (
     <>
       <NavBar scrollY={scrollY} isOpen={isOpen} setOpen={setOpen} location={location} />
-      {isOpen && (
-        <AnimatePresence>
-          <MobileMenu closeMenu={() => setOpen(false)} />
-        </AnimatePresence>
-      )}
+      {/* AnimatePresence mora biti IZVAN uvjeta — inače se exit animacija
+          nikad ne odigra jer se cijeli wrapper odmah unmounta */}
+      <AnimatePresence>
+        {isOpen && <MobileMenu closeMenu={() => setOpen(false)} />}
+      </AnimatePresence>
     </>
   );
 };
