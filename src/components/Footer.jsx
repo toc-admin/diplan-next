@@ -45,6 +45,27 @@ const Footer = ({ show }) => {
     },
   };
 
+  const legalLabels = {
+    "hr-HR": {
+      terms: "Uvjeti korištenja",
+      cookies: "Pravila kolačića",
+      privacy: "Pravila privatnosti",
+      cookieSettings: "Postavke kolačića",
+    },
+    en: {
+      terms: "Terms & Conditions",
+      cookies: "Cookie Policy",
+      privacy: "Privacy Policy",
+      cookieSettings: "Cookie settings",
+    },
+    "de-DE": {
+      terms: "Nutzungsbedingungen",
+      cookies: "Cookie-Richtlinie",
+      privacy: "Datenschutzerklärung",
+      cookieSettings: "Cookie-Einstellungen",
+    },
+  };
+
   return (
     <>
       <div className="flex items-end justify-between -mt-32">
@@ -157,10 +178,22 @@ const Footer = ({ show }) => {
               Ninefold
             </a>
           </p>
-          <div className="flex items-center justify-end gap-4">
-            <p className="text-white/80 text-sm">Terms & Conditions</p>
-            <p className="text-white/80 text-sm">Cookie Policy</p>
-            <p className="text-white/80 text-sm">Privacy Policy</p>
+          <div className="flex flex-wrap items-center justify-end gap-4">
+            <Link href="/terms-and-conditions" className="text-white/80 text-sm hover:text-white transition-colors">
+              {legalLabels[locale.locale].terms}
+            </Link>
+            <Link href="/cookie-policy" className="text-white/80 text-sm hover:text-white transition-colors">
+              {legalLabels[locale.locale].cookies}
+            </Link>
+            <Link href="/privacy-policy" className="text-white/80 text-sm hover:text-white transition-colors">
+              {legalLabels[locale.locale].privacy}
+            </Link>
+            <button
+              onClick={() => window.showCookiePreferences?.()}
+              className="text-white/80 text-sm hover:text-white transition-colors underline underline-offset-2"
+            >
+              {legalLabels[locale.locale].cookieSettings}
+            </button>
           </div>
         </div>
       </div>
