@@ -38,16 +38,8 @@ export default async function RootLayout({ children, params }) {
             'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
             })(window,document,'script','dataLayer','GTM-NJXRGH8P');`}
         </Script>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-MH96HQWDV8"
-          strategy="afterInteractive"
-        />
-        <Script id="ga4" strategy="afterInteractive">
-          {`window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-MH96HQWDV8');`}
-        </Script>
+        {/* GA4 (G-MH96HQWDV8) fires via the GTM container only — the direct
+            gtag snippet was removed so visits aren't counted twice (T8) */}
       </head>
       <body>
         <noscript>
