@@ -2,6 +2,13 @@ import ContactPageClient from "../../../components/ContactPageClient";
 import Contact from "../../../sections/Contact";
 import { strapiFetch } from "../../../lib/strapi";
 import { buildMetadata } from "../../../lib/seo";
+import JsonLd from "../../../components/JsonLd";
+import {
+  organizationJsonLd,
+  breadcrumbJsonLd,
+  faqJsonLd,
+  crumbLabel,
+} from "../../../lib/jsonLd";
 
 async function getContact(lang) {
   return strapiFetch("contact", { lang, params: { populate: "*" }, tags: ["contact"] });
@@ -25,6 +32,13 @@ export default async function ContactPage({ params }) {
 
   return (
     <>
+      <JsonLd
+        data={[
+          organizationJsonLd(lang),
+          breadcrumbJsonLd(lang, [{ name: crumbLabel("contact", lang), path: "/contact" }]),
+          faqJsonLd(content?.contactFaq),
+        ]}
+      />
       <ContactPageClient content={content} />
       <Contact content={content} to="#contact-form" number={4} />
     </>

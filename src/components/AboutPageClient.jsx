@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import MixedTitleLong from "./MixedTitleLong";
 import FullScreenVideoSection from "./FullScreenVideoSection";
 import linkedIn from "../assets/socials/LinkedIN.svg";
@@ -34,7 +35,7 @@ const AboutPageClient = ({ content, team, images }) => {
         {images.map((img, index) => (
           <div
             key={index}
-            className={`overflow-hidden bg-cover ${
+            className={`relative overflow-hidden bg-cover ${
               index === 0
                 ? "row-span-1 md:rounded-tl-[80px] rounded-tl-[40px]"
                 : index === 1
@@ -44,7 +45,13 @@ const AboutPageClient = ({ content, team, images }) => {
                 : "row-span-1 md:rounded-br-[80px] rounded-br-[40px]"
             }`}
           >
-            <img src={img} alt={`gallery-${index}`} className="object-cover" loading="lazy" />
+            <Image
+              src={img}
+              alt={`DI plan – fotografija ureda ${index + 1}`}
+              fill
+              sizes="(max-width: 768px) 50vw, 700px"
+              className="object-cover"
+            />
           </div>
         ))}
       </div>
@@ -98,11 +105,12 @@ const AboutPageClient = ({ content, team, images }) => {
                   {/* Image Container */}
                   <div className="relative aspect-[3/4] bg-gray-100">
                     {imageUrl ? (
-                      <img
+                      <Image
                         src={imageUrl}
                         alt={member.memberImage?.alternativeText || member.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 md:rounded-[40px] rounded-[20px]"
-                        loading="lazy"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 320px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300 md:rounded-[40px] rounded-[20px]"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-gray-200">

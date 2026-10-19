@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 import LegalPageClient from "../../../components/LegalPageClient";
+import JsonLd from "../../../components/JsonLd";
+import { breadcrumbJsonLd, crumbLabel } from "../../../lib/jsonLd";
 import { strapiFetch } from "../../../lib/strapi";
 import { buildMetadata } from "../../../lib/seo";
 
@@ -21,5 +23,10 @@ export default async function PrivacyPolicyPage({ params }) {
   const { lang } = await params;
   const entry = await getEntry(lang);
   if (!entry?.content) notFound();
-  return <LegalPageClient title={entry.name} content={entry.content} />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: crumbLabel("privacy-policy", lang), path: "/privacy-policy" }])} />
+      <LegalPageClient title={entry.name} content={entry.content} />
+    </>
+  );
 }

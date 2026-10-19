@@ -1,4 +1,6 @@
 import BlogPageClient from "../../../components/BlogPageClient";
+import JsonLd from "../../../components/JsonLd";
+import { breadcrumbJsonLd, crumbLabel } from "../../../lib/jsonLd";
 import { strapiFetch } from "../../../lib/strapi";
 import { buildMetadata } from "../../../lib/seo";
 
@@ -29,5 +31,10 @@ export default async function BlogPage({ params }) {
   const { lang } = await params;
   const blogs = await getBlogs(lang);
 
-  return <BlogPageClient blogs={blogs || []} />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: crumbLabel("news", lang), path: "/news" }])} />
+      <BlogPageClient blogs={blogs || []} />
+    </>
+  );
 }

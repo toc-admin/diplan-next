@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Navigation,
@@ -119,12 +120,15 @@ const OurProjects = ({ id, content, filter, initialProjects = null }) => {
             <SwiperSlide key={project.id}>
               <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[750px] rounded-lg sm:rounded-xl overflow-hidden shadow-lg group">
                 <Link to={`/project/${project.slug}`} state={{ content: content }}>
-                  <img
-                    src={project.coverImage?.formats?.large?.url || project.coverImage?.url}
-                    loading="lazy"
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
+                  {project.coverImage?.url && (
+                    <Image
+                      src={project.coverImage.url}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 80vw"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  )}
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark-text/100 via-dark-text/50 to-transparent p-4 sm:p-6 md:p-8 lg:p-12 xl:p-16 flex flex-col justify-end h-full">
                     <h3 className="text-white font-bold text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl max-w-[90%] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] leading-tight">
                       {project.title}

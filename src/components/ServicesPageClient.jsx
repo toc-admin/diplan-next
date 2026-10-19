@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLocale } from "../config/localeContext";
 import MixedTitleLong from "./MixedTitleLong";
 import Contact from "../sections/Contact";
@@ -112,13 +113,15 @@ const ServicesPageClient = ({ content }) => {
             {/* Map through dynamic services */}
             {content?.service?.map((item) => (
               <div key={item.id} className="flex flex-col items-start gap-8 row-span-2">
-                <div className="max-w-[640px] max-h-[860px] rounded-[40px] overflow-hidden shadow-lg aspect-4/5">
+                <div className="relative max-w-[640px] max-h-[860px] rounded-[40px] overflow-hidden shadow-lg aspect-4/5">
                   {item.serviceImage?.url && (
                     <Link to={ROUTES.SERVICE + "/" + item.slugOfService}>
-                    <img
-                      src={`${item.serviceImage.formats?.medium?.url || item.serviceImage.url}`}
+                    <Image
+                      src={item.serviceImage.url}
                       alt={item.serviceImage.alternativeText || item.title}
-                      className="w-full h-full object-cover"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 640px"
+                      className="object-cover"
                     />
                     </Link>
                   )}

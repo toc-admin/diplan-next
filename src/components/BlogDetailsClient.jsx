@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 
 // Blog data arrives server-rendered via props (SEO requirement T1).
@@ -41,11 +42,18 @@ const BlogDetailsClient = ({ blog }) => {
           </p>
         </div>
       </div>
-      <img
-        src={blog?.coverImage?.url}
-        alt={blog.Title}
-        className="w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] 2xl:h-[800px] object-cover rounded-[40px] sm:rounded-[50px] md:rounded-[60px] lg:rounded-[70px] xl:rounded-[80px] max-w-[1400px]"
-      />
+      <div className="relative w-full h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] xl:h-[800px] 2xl:h-[800px] rounded-[40px] sm:rounded-[50px] md:rounded-[60px] lg:rounded-[70px] xl:rounded-[80px] max-w-[1400px] overflow-hidden">
+        {blog?.coverImage?.url && (
+          <Image
+            src={blog.coverImage.url}
+            alt={blog.Title}
+            fill
+            priority
+            sizes="(max-width: 1400px) 100vw, 1400px"
+            className="object-cover"
+          />
+        )}
+      </div>
       <div className="text-gray-600 text-lg leading-relaxed mb-6 mt-24 max-w-[800px]">
         <ReactMarkdown
           components={{
@@ -133,7 +141,7 @@ const BlogDetailsClient = ({ blog }) => {
               <hr className="my-8 border-t border-gray-300" {...props} />
             ),
             img: ({ node, ...props }) => (
-              <img className="max-w-full h-auto rounded-lg my-4" {...props} />
+              <img className="max-w-full h-auto rounded-lg my-4" loading="lazy" {...props} />
             ),
             table: ({ node, ...props }) => (
               <div className="overflow-x-auto mb-4">

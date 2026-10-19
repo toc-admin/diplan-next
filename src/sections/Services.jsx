@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import MixedTitle from "../components/MixedTitle";
 import { useLocale } from "../config/localeContext";
 import Link from "../components/LocalizedLink";
@@ -14,12 +15,16 @@ const Services = ({ id, content, services = [] }) => {
 
     if (type === "image") {
       return (
-        <div className="w-[377px] h-[401px] rounded-[20px] overflow-hidden flex items-center justify-center group">
-          <img
-            className="w-[377px] h-[401px] object-cover transition-transform duration-300 group-hover:scale-105"
-            src={service.coverImage?.url}
-            alt={service.heroTitle}
-          />
+        <div className="relative w-[377px] h-[401px] rounded-[20px] overflow-hidden flex items-center justify-center group">
+          {service.coverImage?.url && (
+            <Image
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              src={service.coverImage.url}
+              alt={service.heroTitle}
+              fill
+              sizes="377px"
+            />
+          )}
         </div>
       );
     }

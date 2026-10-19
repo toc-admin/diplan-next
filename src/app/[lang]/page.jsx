@@ -8,6 +8,8 @@ import Reviews from "../../sections/Reviews";
 import { ROUTES } from "../../config/routes";
 import { strapiFetch } from "../../lib/strapi";
 import { buildMetadata } from "../../lib/seo";
+import JsonLd from "../../components/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "../../lib/jsonLd";
 
 async function getHomepage(lang) {
   return strapiFetch("homepage", { lang, params: { populate: "*" }, tags: ["homepage"] });
@@ -53,6 +55,7 @@ export default async function HomePage({ params }) {
 
   return (
     <>
+      <JsonLd data={[organizationJsonLd(lang), websiteJsonLd(lang)]} />
       <HeroSection content={content} />
       <Services content={content} services={services || []} />
       <OurNumbers content={content} />

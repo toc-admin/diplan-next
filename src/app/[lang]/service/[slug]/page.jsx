@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { strapiFetch, strapiFindBySlug } from "../../../../lib/strapi";
 import { buildMetadata } from "../../../../lib/seo";
 import ServicesDetailsClient from "../../../../components/ServicesDetailsClient";
+import JsonLd from "../../../../components/JsonLd";
+import { serviceJsonLd, breadcrumbJsonLd, crumbLabel } from "../../../../lib/jsonLd";
 
 const DETAIL_PARAMS = {
   "populate[coverImage]": "true",
@@ -53,5 +55,18 @@ export default async function ServiceDetailsPage({ params }) {
     tags: ["project"],
   });
 
-  return <ServicesDetailsClient service={service} initialProjects={projects || []} />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          serviceJsonLd({ name: service.heroTitle, lang }),
+          breadcrumbJsonLd(lang, [
+            { name: crumbLabel("service", lang), path: "/service" },
+            { name: service.heroTitle, path: `/service/${slug}` },
+          ]),
+        ]}
+      />
+      <ServicesDetailsClient service={service} initialProjects={projects || []} />
+    </>
+  );
 }

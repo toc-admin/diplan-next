@@ -4,6 +4,8 @@ import Contact from "../../../../sections/Contact";
 import { ROUTES } from "../../../../config/routes";
 import { strapiFetch, strapiFindBySlug } from "../../../../lib/strapi";
 import { buildMetadata } from "../../../../lib/seo";
+import JsonLd from "../../../../components/JsonLd";
+import { creativeWorkJsonLd, breadcrumbJsonLd, crumbLabel } from "../../../../lib/jsonLd";
 
 async function getProject(lang, slug) {
   return strapiFindBySlug("projects", slug, {
@@ -44,6 +46,15 @@ export default async function ProjectDetailsPage({ params }) {
 
   return (
     <>
+      <JsonLd
+        data={[
+          creativeWorkJsonLd({ project, lang, path: `/project/${slug}` }),
+          breadcrumbJsonLd(lang, [
+            { name: crumbLabel("project", lang), path: "/project" },
+            { name: project.title, path: `/project/${slug}` },
+          ]),
+        ]}
+      />
       <ProjectDetailsClient project={project} />
       <Contact content={content} to={ROUTES.CONTACT} number={4} />
     </>

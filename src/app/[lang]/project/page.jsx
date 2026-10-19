@@ -4,6 +4,8 @@ import { ROUTES } from "../../../config/routes";
 import { strapiFetch, STRAPI_URL } from "../../../lib/strapi";
 import { strapiLocale } from "../../../lib/i18n";
 import { buildMetadata } from "../../../lib/seo";
+import JsonLd from "../../../components/JsonLd";
+import { breadcrumbJsonLd, crumbLabel } from "../../../lib/jsonLd";
 
 const PAGE_SIZE = 6;
 
@@ -51,6 +53,7 @@ export default async function ProjectsPage({ params }) {
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: crumbLabel("project", lang), path: "/project" }])} />
       <ProjectsPageClient
         content={content}
         initialProjects={projects}

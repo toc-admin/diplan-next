@@ -173,7 +173,7 @@ const Footer = ({ show }) => {
       <div className="bg-brand-color md:px-44 px-4 flex pb-12 items-center justify-center">
         <div className="flex items-center justify-between w-full max-w-[1400px] gap-12 pt-4">
           <p className="text-white/80 text-sm">
-            © 2025 DI-PLAN d.o.o. Sva prava pridržana. Izrada:{" "}
+            © {new Date().getFullYear()} DI-PLAN d.o.o. Sva prava pridržana. Izrada:{" "}
             <a href="https://www.ninefold.eu" target="_blank" rel="noopener">
               Ninefold
             </a>

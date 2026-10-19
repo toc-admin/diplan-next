@@ -1,17 +1,21 @@
 "use client";
 
+import Image from "next/image";
 import Link from "./LocalizedLink";
 
 const ProjectCard = (props) => {
   return (
     <Link to={`/project/${props.slug}`} state={{ content: props.content }}>
       <div className="relative w-full h-[450px] rounded-xl overflow-hidden shadow-lg group">
-        <img
-          src={props.image}
-          loading="lazy"
-          alt={props.title}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        {props.image && (
+          <Image
+            src={props.image}
+            alt={props.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        )}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark-text/100 via-dark-text/50 to-transparent p-8 flex flex-col justify-end h-full">
           <h3 className="text-white font-bold text-[26px] sm:text-[28px] md:text-[30px] lg:text-[32px] xl:text-[34px] 2xl:text-[36px] max-w-[800px]">
             {props.name}

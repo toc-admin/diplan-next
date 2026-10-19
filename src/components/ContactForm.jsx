@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useLocale } from "../config/localeContext";
+import Link from "./LocalizedLink";
 
 
 export default function ContactForm() {
@@ -32,7 +33,10 @@ export default function ContactForm() {
       statusSending: "Šalje se...",
       statusSuccess: "✅ Poruka je uspješno poslana!",
       statusError: "❌ Slanje poruke nije uspjelo.",
-      statusGenericError: "⚠️ Nešto je pošlo po zlu."
+      statusGenericError: "⚠️ Nešto je pošlo po zlu.",
+      privacyNotice: "Slanjem obrasca pristajete na obradu podataka u svrhu odgovora na upit, u skladu s našim ",
+      privacyLink: "Pravilima privatnosti",
+      privacyNoticeEnd: "."
     },
     "en": {
       nameLabel: "Full name",
@@ -49,7 +53,10 @@ export default function ContactForm() {
       statusSending: "Sending...",
       statusSuccess: "✅ Message sent successfully!",
       statusError: "❌ Failed to send message.",
-      statusGenericError: "⚠️ Something went wrong."
+      statusGenericError: "⚠️ Something went wrong.",
+      privacyNotice: "By submitting this form you consent to the processing of your data for the purpose of responding to your enquiry, in accordance with our ",
+      privacyLink: "Privacy Policy",
+      privacyNoticeEnd: "."
     },
     "de-DE": {
       nameLabel: "Vollständiger Name",
@@ -66,7 +73,10 @@ export default function ContactForm() {
       statusSending: "Wird gesendet...",
       statusSuccess: "✅ Nachricht erfolgreich gesendet!",
       statusError: "❌ Nachricht konnte nicht gesendet werden.",
-      statusGenericError: "⚠️ Etwas ist schief gelaufen."
+      statusGenericError: "⚠️ Etwas ist schief gelaufen.",
+      privacyNotice: "Mit dem Absenden des Formulars stimmen Sie der Verarbeitung Ihrer Daten zur Beantwortung Ihrer Anfrage zu, gemäß unserer ",
+      privacyLink: "Datenschutzerklärung",
+      privacyNoticeEnd: "."
     }
   };
 
@@ -166,7 +176,15 @@ export default function ContactForm() {
       >
         {currentText.sendButton}
       </button>
-      
+
+      <p className="text-xs text-dark-text/60 text-center mt-4">
+        {currentText.privacyNotice}
+        <Link href="/privacy-policy" className="underline hover:text-dark-text transition-colors">
+          {currentText.privacyLink}
+        </Link>
+        {currentText.privacyNoticeEnd}
+      </p>
+
       {status && <p className="text-center mt-4">{status}</p>}
     </form>
   );

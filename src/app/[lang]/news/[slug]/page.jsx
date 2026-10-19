@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import BlogDetailsClient from "../../../../components/BlogDetailsClient";
 import { strapiFindBySlug } from "../../../../lib/strapi";
 import { buildMetadata } from "../../../../lib/seo";
+import JsonLd from "../../../../components/JsonLd";
+import { blogPostingJsonLd, breadcrumbJsonLd, crumbLabel } from "../../../../lib/jsonLd";
 
 async function getBlog(lang, slug) {
   return strapiFindBySlug("blogs", slug, { lang, params: { populate: "*" } });
@@ -29,5 +31,18 @@ export default async function BlogDetailsPage({ params }) {
   // Unknown slugs must return a real 404 status (SEO requirement T4).
   if (!blog) notFound();
 
-  return <BlogDetailsClient blog={blog} />;
+  return (
+    <>
+      <JsonLd
+        data={[
+          blogPostingJsonLd({ blog, lang, path: `/news/${slug}` }),
+          breadcrumbJsonLd(lang, [
+            { name: crumbLabel("news", lang), path: "/news" },
+            { name: blog.Title, path: `/news/${slug}` },
+          ]),
+        ]}
+      />
+      <BlogDetailsClient blog={blog} />
+    </>
+  );
 }

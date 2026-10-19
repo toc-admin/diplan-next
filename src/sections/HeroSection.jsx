@@ -80,7 +80,7 @@ const HeroSection = ({ id, content }) => {
       
       {/* H1 Animation & Subtext */}
       <div className="relative z-10 flex flex-col gap-4 sm:gap-6 md:gap-8 items-center justify-start h-full mt-32 sm:mt-32 md:mt-32 lg:mt-32 xl:mt-0">
-        <motion.div
+        <motion.h1
           variants={containerVars}
           initial="initial"
           animate="open"
@@ -88,10 +88,10 @@ const HeroSection = ({ id, content }) => {
           className="flex flex-col"
         >
           {h1Rows.map((row, index) => (
-            <div key={index} className="overflow-hidden">
-              <motion.div
+            <span key={index} className="block overflow-hidden">
+              <motion.span
                 variants={h1Vars}
-                className="text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl 2xl:text-[100px] uppercase font-black leading-none text-white text-center whitespace-pre-wrap"
+                className="block text-2xl sm:text-3xl md:text-5xl lg:text-7xl xl:text-8xl 2xl:text-[100px] uppercase font-black leading-none text-white text-center whitespace-pre-wrap"
               >
                 {row.split(" ").map((word, i) => (
                   <span key={i}>
@@ -101,10 +101,10 @@ const HeroSection = ({ id, content }) => {
                     {i === 0 || i === 1 ? <br /> : i < row.split(" ").length - 1 ? " " : ""}
                   </span>
                 ))}
-              </motion.div>
-            </div>
+              </motion.span>
+            </span>
           ))}
-        </motion.div>
+        </motion.h1>
 
         {/* Subtext */}
         <motion.p

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "./LocalizedLink";
 
 const BlogPost = (props) => {
@@ -13,12 +14,15 @@ const BlogPost = (props) => {
       <Link to={`/news/${props.slug}`}>
       <div onClick={handleClick} className="relative group cursor-pointer">
         <div className="relative overflow-hidden rounded-[40px] aspect-4/5 max-h-[500px]">
-          <img
-            alt={props.name}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-            src={props.image}
-          loading="lazy"
-          />
+          {props.image && (
+            <Image
+              alt={props.name}
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              src={props.image}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            />
+          )}
 
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-dark-text via-dark-text/70 to-transparent"></div>

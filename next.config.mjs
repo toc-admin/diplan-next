@@ -28,6 +28,18 @@ const nextConfig = {
       { source: "/projects", destination: "/project", permanent: true },
       { source: "/blog", destination: "/news", permanent: true },
       { source: "/blog/:slug", destination: "/news/:slug", permanent: true },
+      // Duplicate project entry — both slugs describe the same building;
+      // the -1 variant 301s to the canonical page (client report, 18.10.2026)
+      {
+        source: "/project/stambena-zgrada-dakovacka-1",
+        destination: "/project/stambena-zgrada-dakovacka",
+        permanent: true,
+      },
+      {
+        source: "/:lang(en|de)/project/stambena-zgrada-dakovacka-1",
+        destination: "/:lang/project/stambena-zgrada-dakovacka",
+        permanent: true,
+      },
     ];
   },
 };

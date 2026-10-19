@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLocale } from "../config/localeContext";
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
@@ -8,7 +9,7 @@ import MixedTitleLong from "./MixedTitleLong";
 const ProjectDetailsClient = ({ project }) => {
   const { locale } = useLocale();
 
-  const images = project?.images?.map((img) => img.url);
+  const images = project?.images || [];
 
   return (
     <>
@@ -18,15 +19,26 @@ const ProjectDetailsClient = ({ project }) => {
           initial={{ scale: 1.2 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 90%),
-                            linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%),
-                            url(${project?.coverImage?.url})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+          className="absolute inset-0 overflow-hidden"
+        >
+          {project?.coverImage?.url && (
+            <Image
+              src={project.coverImage.url}
+              alt={project.coverImage.alternativeText || project.title || ""}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+            />
+          )}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 90%),
+                              linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%)`,
+            }}
+          />
+        </motion.div>
 
         {/* H1 Animation & Subtext */}
         <div className="relative z-10 flex flex-col md:gap-8 gap-4 items-center justify-start h-full md:mt-0 mt-32">
@@ -125,11 +137,13 @@ const ProjectDetailsClient = ({ project }) => {
               key={index}
               className={`overflow-hidden rounded-[36px] sm:rounded-[40px] md:rounded-[46px] lg:rounded-[50px] xl:rounded-[56px] 2xl:rounded-[56px] bg-cover ${index === 0 ? "row-span-2" : index === 1 ? "row-span-1" : index === 2 ? "row-span-2" : ""}`}
             >
-              <img
-                src={img}
-                alt={`gallery-${index}`}
+              <Image
+                src={img.url}
+                alt={img.alternativeText || `${project?.title || "Projekt"} – fotografija ${index + 1}`}
+                width={img.width || 1600}
+                height={img.height || 1200}
+                sizes="(max-width: 768px) 100vw, 700px"
                 className="h-full w-full object-cover"
-                loading="lazy"
               />
             </div>
           ))}

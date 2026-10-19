@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLocale } from "../config/localeContext";
 import MixedTitleLong from "./MixedTitleLong";
 import Contact from "../sections/Contact";
@@ -22,15 +23,24 @@ const ServicesDetailsClient = ({ service, initialProjects }) => {
           initial={{ scale: 1.2 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 90%),
-                            linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%),
-                            url(${service?.coverImage?.url ? service.coverImage.url : heroImg.src})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
+          className="absolute inset-0 overflow-hidden"
+        >
+          <Image
+            src={service?.coverImage?.url || heroImg}
+            alt={service?.coverImage?.alternativeText || service?.heroTitle || ""}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 90%),
+                              linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%)`,
+            }}
+          />
+        </motion.div>
 
         {/* H1 Animation & Subtext */}
         <div className="relative z-10 flex flex-col md:gap-4 gap-4 items-start justify-end h-full max-w-[1400px] w-full px-4 pb-32 sm:pb-32 md:pb-6 lg:pb-0 xl:pb-0 2xl:pb-0">
@@ -94,13 +104,14 @@ const ServicesDetailsClient = ({ service, initialProjects }) => {
                 key={item.id}
                 className="flex flex-col items-start gap-8 row-span-2"
               >
-                <div className="max-w-[640px] max-h-[860px] rounded-[40px] overflow-hidden shadow-lg aspect-4/5">
+                <div className="relative max-w-[640px] max-h-[860px] rounded-[40px] overflow-hidden shadow-lg aspect-4/5">
                   {item.benefitImage?.url && (
-                    <img
-                      src={`${item.benefitImage.formats?.large?.url || item.benefitImage.url}`}
+                    <Image
+                      src={item.benefitImage.url}
                       alt={item.benefitImage.alternativeText || item.benefitTitle || 'Benefit image'}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
+                      fill
+                      sizes="(max-width: 768px) 100vw, 640px"
+                      className="object-cover"
                     />
                   )}
                 </div>

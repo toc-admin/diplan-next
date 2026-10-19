@@ -2,6 +2,8 @@ import AboutPageClient from "../../../components/AboutPageClient";
 import Contact from "../../../sections/Contact";
 import { strapiFetch, STRAPI_URL } from "../../../lib/strapi";
 import { buildMetadata } from "../../../lib/seo";
+import JsonLd from "../../../components/JsonLd";
+import { breadcrumbJsonLd, crumbLabel } from "../../../lib/jsonLd";
 
 async function getAbout(lang) {
   return strapiFetch("about", { lang, params: { populate: "*" }, tags: ["about"] });
@@ -21,7 +23,8 @@ export async function generateMetadata({ params }) {
 
 function memberImageUrl(memberImage) {
   if (!memberImage) return null;
-  const url = memberImage.formats?.medium?.url || memberImage.url;
+  // Original, not a Strapi format: next/image resizes per device from the source
+  const url = memberImage.url;
   return url?.startsWith("/") ? `${STRAPI_URL}${url}` : url;
 }
 
@@ -56,10 +59,11 @@ export default async function AboutPage({ params }) {
     })
     .map((member) => ({ ...member, imageUrl: memberImageUrl(member.memberImage) }));
 
-  const images = content?.images?.map((img) => img.formats?.medium?.url || img.url) || [];
+  const images = content?.images?.map((img) => img.url) || [];
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: crumbLabel("about-us", lang), path: "/about-us" }])} />
       <AboutPageClient content={content} team={team} images={images} />
       <Contact content={content} to={"https://dominvest-grupa.hr/karijera/"} number={5} />
     </>

@@ -1,6 +1,8 @@
 import { strapiFetch } from "../../../lib/strapi";
 import { buildMetadata } from "../../../lib/seo";
 import ServicesPageClient from "../../../components/ServicesPageClient";
+import JsonLd from "../../../components/JsonLd";
+import { breadcrumbJsonLd, crumbLabel } from "../../../lib/jsonLd";
 
 async function getContent(lang) {
   return strapiFetch("services-page", {
@@ -30,5 +32,10 @@ export default async function ServicesPage({ params }) {
   const { lang } = await params;
   const content = await getContent(lang);
 
-  return <ServicesPageClient content={content} />;
+  return (
+    <>
+      <JsonLd data={breadcrumbJsonLd(lang, [{ name: crumbLabel("service", lang), path: "/service" }])} />
+      <ServicesPageClient content={content} />
+    </>
+  );
 }
