@@ -72,7 +72,7 @@ const TEXT = {
       ["Nachrichten", ROUTES.BLOG],
       ["Kontakt", ROUTES.CONTACT],
     ],
-    cta: "Starte dein Projekt",
+    cta: "Starten Sie Ihr Projekt",
   },
 };
 

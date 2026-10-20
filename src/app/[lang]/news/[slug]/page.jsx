@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import BlogDetailsClient from "../../../../components/BlogDetailsClient";
-import { strapiFindBySlug } from "../../../../lib/strapi";
+import { strapiFindBySlug, localizedPaths } from "../../../../lib/strapi";
 import { buildMetadata } from "../../../../lib/seo";
 import JsonLd from "../../../../components/JsonLd";
 import { blogPostingJsonLd, breadcrumbJsonLd, crumbLabel } from "../../../../lib/jsonLd";
@@ -21,6 +21,7 @@ export async function generateMetadata({ params }) {
     fallbackTitle: blog.Title,
     fallbackDescription: blog.excerpt,
     image: blog.coverImage?.url,
+    localizedPaths: localizedPaths(blog, "news"),
   });
 }
 

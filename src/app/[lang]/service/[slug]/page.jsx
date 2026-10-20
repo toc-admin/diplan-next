@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { strapiFetch, strapiFindBySlug } from "../../../../lib/strapi";
+import { strapiFetch, strapiFindBySlug, localizedPaths, LOCALIZATIONS_PARAMS } from "../../../../lib/strapi";
 import { buildMetadata } from "../../../../lib/seo";
 import ServicesDetailsClient from "../../../../components/ServicesDetailsClient";
 import JsonLd from "../../../../components/JsonLd";
@@ -11,6 +11,7 @@ const DETAIL_PARAMS = {
   "populate[ourProcess]": "true",
   "populate[faq]": "true",
   "populate[serviceSingleSeo][populate]": "*",
+  ...LOCALIZATIONS_PARAMS,
 };
 
 async function getService(lang, slug) {
@@ -31,6 +32,7 @@ export async function generateMetadata({ params }) {
     fallbackTitle: service.heroTitle,
     fallbackDescription: service.heroSubtitle,
     image: service.coverImage?.url,
+    localizedPaths: localizedPaths(service, "service"),
   });
 }
 

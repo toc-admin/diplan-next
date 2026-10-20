@@ -20,14 +20,14 @@ export const applyConsentToGTM = (prefs) => {
     ad_personalization: prefs.marketing ? "granted" : "denied",
   };
 
-  // Prefer gtag() if available (we defined a stub in index.html)
+  // Consent Mode update (the stub lives in the layout's consent-defaults script)
   if (window.gtag) {
     window.gtag("consent", "update", payload);
-  } else {
-    // Fallback – GTM will read from dataLayer too
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "consent_update", ...payload });
   }
+  // Always also push a dataLayer event: consent updates alone never re-fire
+  // GTM triggers, so GA4/Meta tags listen for this event instead.
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({ event: "consent_update", ...payload });
 };
 
 // Call this once on app load to re-apply stored consent

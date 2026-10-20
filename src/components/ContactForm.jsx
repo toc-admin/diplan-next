@@ -34,7 +34,7 @@ export default function ContactForm() {
       statusSuccess: "✅ Poruka je uspješno poslana!",
       statusError: "❌ Slanje poruke nije uspjelo.",
       statusGenericError: "⚠️ Nešto je pošlo po zlu.",
-      privacyNotice: "Slanjem obrasca pristajete na obradu podataka u svrhu odgovora na upit, u skladu s našim ",
+      privacyNotice: "Podatke iz obrasca obrađujemo radi odgovora na Vaš upit, u skladu s ",
       privacyLink: "Pravilima privatnosti",
       privacyNoticeEnd: "."
     },
@@ -54,7 +54,7 @@ export default function ContactForm() {
       statusSuccess: "✅ Message sent successfully!",
       statusError: "❌ Failed to send message.",
       statusGenericError: "⚠️ Something went wrong.",
-      privacyNotice: "By submitting this form you consent to the processing of your data for the purpose of responding to your enquiry, in accordance with our ",
+      privacyNotice: "We process the data from this form to respond to your enquiry, in accordance with our ",
       privacyLink: "Privacy Policy",
       privacyNoticeEnd: "."
     },
@@ -74,7 +74,7 @@ export default function ContactForm() {
       statusSuccess: "✅ Nachricht erfolgreich gesendet!",
       statusError: "❌ Nachricht konnte nicht gesendet werden.",
       statusGenericError: "⚠️ Etwas ist schief gelaufen.",
-      privacyNotice: "Mit dem Absenden des Formulars stimmen Sie der Verarbeitung Ihrer Daten zur Beantwortung Ihrer Anfrage zu, gemäß unserer ",
+      privacyNotice: "Wir verarbeiten die Daten aus diesem Formular zur Beantwortung Ihrer Anfrage, gemäß unserer ",
       privacyLink: "Datenschutzerklärung",
       privacyNoticeEnd: "."
     }

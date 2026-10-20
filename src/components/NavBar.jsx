@@ -24,7 +24,7 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
     },
     "statika-i-inzenjerstvo": {
       "hr-HR": "statika-i-inzenjerstvo",
-      "en": "structural-engineering",
+      "en": "structural-engineering-1",
       "de-DE": "statik",
     },
     "energetska-rjesenja": {
@@ -34,7 +34,7 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
     },
     "strucni-nadzor": {
       "hr-HR": "strucni-nadzor",
-      "en": "professional-supervision",
+      "en": "construction-supervision",
       "de-DE": "fachliche-bauaufsicht",
     },
   };
@@ -262,7 +262,7 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
             <span className="bg-cta-color text-white rounded-full px-6 py-4 font-semibold flex">
               {locale.locale === "hr-HR" && "Započni svoj projekt"}
               {locale.locale === "en" && "Start your project"}
-              {locale.locale === "de-DE" && "Starte dein Projekt"}
+              {locale.locale === "de-DE" && "Starten Sie Ihr Projekt"}
             </span>
           </Link>
           <LocaleSwitcher />
