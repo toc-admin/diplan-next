@@ -9,6 +9,10 @@ export const STRAPI_LOCALES = {
   de: "de-DE",
 };
 
+export const STRAPI_TO_LANG = Object.fromEntries(
+  Object.entries(STRAPI_LOCALES).map(([lang, code]) => [code, lang])
+);
+
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://di-plan.hr";
 
 export function isValidLang(lang) {

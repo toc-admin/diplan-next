@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import ProjectDetailsClient from "../../../../components/ProjectDetailsClient";
 import Contact from "../../../../sections/Contact";
 import { ROUTES } from "../../../../config/routes";
-import { strapiFetch, strapiFindBySlug } from "../../../../lib/strapi";
+import { strapiFetch, strapiFindBySlug, localizedPaths } from "../../../../lib/strapi";
 import { buildMetadata } from "../../../../lib/seo";
 import JsonLd from "../../../../components/JsonLd";
 import { creativeWorkJsonLd, breadcrumbJsonLd, crumbLabel } from "../../../../lib/jsonLd";
@@ -26,6 +26,7 @@ export async function generateMetadata({ params }) {
     fallbackTitle: project.title,
     fallbackDescription: project.excerpt,
     image: project.coverImage?.url,
+    localizedPaths: localizedPaths(project, "project"),
   });
 }
 

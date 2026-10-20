@@ -1,4 +1,4 @@
-import { strapiLocale } from "./i18n";
+import { strapiLocale, STRAPI_TO_LANG } from "./i18n";
 
 export const STRAPI_URL =
   process.env.NEXT_PUBLIC_STRAPI_URL ||
@@ -45,6 +45,31 @@ export async function strapiFindBySlug(collection, slug, { lang, params = {} } =
     tags: [collection],
   });
   return Array.isArray(data) && data.length > 0 ? data[0] : null;
+}
+
+// Query params that pull localized slugs alongside an entry, for collections
+// fetched with bracket populate (mixing populate=* with brackets 500s in Strapi).
+export const LOCALIZATIONS_PARAMS = {
+  "populate[localizations][fields][0]": "slug",
+  "populate[localizations][fields][1]": "locale",
+};
+
+/**
+ * Per-language public paths for a localized entry, built from its own slug
+ * plus Strapi `localizations`. Languages without a translation stay null, so
+ * hreflang can be omitted and the language switcher can fall back home.
+ * Example: { hr: "/project/x", en: "/project/y", de: null }
+ */
+export function localizedPaths(entry, base) {
+  const paths = { hr: null, en: null, de: null };
+  if (!entry) return paths;
+  const add = (locale, slug) => {
+    const lang = STRAPI_TO_LANG[locale];
+    if (lang && slug) paths[lang] = `/${base}/${slug}`;
+  };
+  add(entry.locale, entry.slug);
+  for (const loc of entry.localizations || []) add(loc.locale, loc.slug);
+  return paths;
 }
 
 /** Best Strapi image format URL at or above the given width, falling back to original. */

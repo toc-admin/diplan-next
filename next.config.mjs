@@ -35,9 +35,15 @@ const nextConfig = {
         destination: "/project/stambena-zgrada-dakovacka",
         permanent: true,
       },
+      // EN lives under a translated slug, DE shares the Croatian one
       {
-        source: "/:lang(en|de)/project/stambena-zgrada-dakovacka-1",
-        destination: "/:lang/project/stambena-zgrada-dakovacka",
+        source: "/en/project/:slug(stambena-zgrada-dakovacka|stambena-zgrada-dakovacka-1)",
+        destination: "/en/project/residential-building-dakovacka",
+        permanent: true,
+      },
+      {
+        source: "/de/project/stambena-zgrada-dakovacka-1",
+        destination: "/de/project/stambena-zgrada-dakovacka",
         permanent: true,
       },
     ];

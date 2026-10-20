@@ -14,8 +14,16 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import rev from "../assets/images/revs.png";
 import MixedTitle from "../components/MixedTitle";
+import { useLocale } from "../config/localeContext";
+
+const REVIEWS_BASED_ON = {
+  "hr-HR": "Na temelju 146 recenzija",
+  en: "Based on 146 reviews",
+  "de-DE": "Basierend auf 146 Bewertungen",
+};
 
 const Reviews = ({ id, content }) => {
+  const { locale } = useLocale();
   return (
     <div className="flex items-center justify-center px-4 sm:px-6 md:px-12 lg:px-24 xl:px-44">
       <div
@@ -37,7 +45,7 @@ const Reviews = ({ id, content }) => {
           </p>
           <img src={rev.src} className="w-auto h-auto max-w-[200px] sm:max-w-[250px] md:max-w-full" alt="Reviews" />
           <p className="text-light-text text-xs sm:text-sm max-w-full xl:max-w-[400px] leading-6 sm:leading-7 md:leading-9 tracking-wide -mt-2 sm:-mt-3 md:-mt-4">
-            Based on 146 reviews
+            {REVIEWS_BASED_ON[locale] || REVIEWS_BASED_ON["hr-HR"]}
           </p>
         </div>
 

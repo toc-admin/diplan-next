@@ -115,7 +115,7 @@ const ProjectsPageClient = ({ content, initialProjects, initialPagination, pageS
 
       {/* Projects Grid */}
       {projects.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 gap-11 pb-8">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-2 gap-11 pb-8">
           {projects.map((project, index) => (
             <ProjectCard
               key={`${project.id}-${index}`}
