@@ -31,7 +31,9 @@ const AboutPageClient = ({ content, team, images }) => {
       <p className="font-medium px-4 text-[16px] sm:text-[18px] md:text-[18px] lg:text-[20px] xl:text-[20px] 2xl:text-[20px] text-gray-600 text-center max-w-[1000px] pt-8 leading-relaxed tracking-wider whitespace-pre-wrap">
         {content?.heroSubtitle}
       </p>
-      <div className="grid grid-cols-2 md:gap-4 gap-2 py-32 max-w-[1400px] h-[500px] sm:h-[580px] md:h-[660px] lg:h-[740px] xl:h-[820px] 2xl:h-[900px] px-4">
+      {/* w-full: parent centers with flex, so without it the grid (whose only
+          content is intrinsically 0-wide fill images) collapses to 0px */}
+      <div className="grid grid-cols-2 md:gap-4 gap-2 py-32 w-full max-w-[1400px] h-[500px] sm:h-[580px] md:h-[660px] lg:h-[740px] xl:h-[820px] 2xl:h-[900px] px-4">
         {images.map((img, index) => (
           <div
             key={index}

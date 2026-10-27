@@ -113,7 +113,9 @@ const ServicesPageClient = ({ content }) => {
             {/* Map through dynamic services */}
             {content?.service?.map((item) => (
               <div key={item.id} className="flex flex-col items-start gap-8 row-span-2">
-                <div className="relative max-w-[640px] max-h-[860px] rounded-[40px] overflow-hidden shadow-lg aspect-4/5">
+                {/* w-full: fill image has no intrinsic width, so inside this
+                    items-start flex column the card would collapse to 0px */}
+                <div className="relative w-full max-w-[640px] max-h-[860px] rounded-[40px] overflow-hidden shadow-lg aspect-4/5">
                   {item.serviceImage?.url && (
                     <Link to={ROUTES.SERVICE + "/" + item.slugOfService}>
                     <Image

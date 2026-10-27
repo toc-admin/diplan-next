@@ -10,10 +10,12 @@ const BlogPost = (props) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 items-start justify-start">
-      <Link to={`/news/${props.slug}`}>
-      <div onClick={handleClick} className="relative group cursor-pointer">
-        <div className="relative overflow-hidden rounded-[40px] aspect-4/5 max-h-[500px]">
+    <div className="w-full flex flex-col gap-4 items-start justify-start">
+      <Link to={`/news/${props.slug}`} className="block w-full">
+      {/* w-full down the whole chain: with next/image fill the card has no
+          intrinsic width and would collapse to 0px (same bug as /project grid) */}
+      <div onClick={handleClick} className="relative group cursor-pointer w-full">
+        <div className="relative overflow-hidden rounded-[40px] aspect-4/5 max-h-[500px] w-full">
           {props.image && (
             <Image
               alt={props.name}
