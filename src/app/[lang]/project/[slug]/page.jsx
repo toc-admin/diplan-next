@@ -14,6 +14,26 @@ async function getProject(lang, slug) {
   });
 }
 
+// Service page sharing the project's whichService, for the "more about this
+// service" link (client report v4, item 7). Slug comes from Strapi, not code.
+async function getRelatedService(lang, whichService) {
+  if (!whichService) return null;
+  try {
+    const data = await strapiFetch("service-single-pages", {
+      lang,
+      params: {
+        "filters[whichService][$eq]": whichService,
+        "fields[0]": "slug",
+        "fields[1]": "heroTitle",
+      },
+      tags: ["service-single-page"],
+    });
+    return data?.[0] || null;
+  } catch {
+    return null;
+  }
+}
+
 export async function generateMetadata({ params }) {
   const { lang, slug } = await params;
   const project = await getProject(lang, slug);
@@ -45,6 +65,8 @@ export default async function ProjectDetailsPage({ params }) {
   // Real 404 status for unknown slugs (SEO requirement T4)
   if (!project) notFound();
 
+  const relatedService = await getRelatedService(lang, project.whichService);
+
   return (
     <>
       <JsonLd
@@ -56,7 +78,7 @@ export default async function ProjectDetailsPage({ params }) {
           ]),
         ]}
       />
-      <ProjectDetailsClient project={project} />
+      <ProjectDetailsClient project={project} relatedService={relatedService} />
       <Contact content={content} to={ROUTES.CONTACT} number={4} />
     </>
   );

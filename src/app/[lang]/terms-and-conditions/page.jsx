@@ -9,6 +9,13 @@ async function getEntry(lang) {
   return strapiFetch("t-and-c", { lang, tags: ["t-and-c"] });
 }
 
+// No SEO fields exist in Strapi for legal pages (client report v4, item 8)
+const DESCRIPTIONS = {
+  hr: "Uvjeti korištenja web-stranice di-plan.hr tvrtke DI plan d.o.o. iz Zagreba.",
+  en: "Terms and conditions of use for di-plan.hr, the website of DI plan d.o.o., Zagreb.",
+  de: "Nutzungsbedingungen für di-plan.hr, die Website der DI plan d.o.o., Zagreb.",
+};
+
 export async function generateMetadata({ params }) {
   const { lang } = await params;
   const entry = await getEntry(lang);
@@ -16,6 +23,7 @@ export async function generateMetadata({ params }) {
     lang,
     path: "/terms-and-conditions",
     fallbackTitle: entry?.name ? `${entry.name} | DI plan` : "DI plan",
+    fallbackDescription: DESCRIPTIONS[lang] || DESCRIPTIONS.hr,
   });
 }
 

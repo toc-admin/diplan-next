@@ -250,7 +250,7 @@ const NavBar = ({ scrollY, isOpen, setOpen, location }) => {
             <span className={`nav-button ${textColorClass}`}>
             {locale.locale === "hr-HR" && "Novosti"}
               {locale.locale === "en" && "News"}
-              {locale.locale === "de-DE" && "Nachricht"}
+              {locale.locale === "de-DE" && "Aktuelles"}
             </span>
           </Link>
         </div>

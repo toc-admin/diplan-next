@@ -14,7 +14,7 @@ const BlogPageClient = ({ blogs }) => {
           ? "Novosti"
           : locale === "en"
           ? "News"
-          : "Nachricht"}
+          : "Aktuelles"}
       </h1>
       {/* w-full: parent centers with flex, so without it the grid (whose only
           content is intrinsically 0-wide fill images) collapses to 0px */}

@@ -9,6 +9,13 @@ async function getEntry(lang) {
   return strapiFetch("cookie-policy", { lang, tags: ["cookie-policy"] });
 }
 
+// No SEO fields exist in Strapi for legal pages (client report v4, item 8)
+const DESCRIPTIONS = {
+  hr: "Pravila kolačića web-stranice di-plan.hr: koje kolačiće koristimo, čemu služe i kako možete upravljati postavkama.",
+  en: "Cookie policy for di-plan.hr: which cookies we use, what they are for and how you can manage your settings.",
+  de: "Cookie-Richtlinie von di-plan.hr: welche Cookies wir verwenden, wozu sie dienen und wie Sie Ihre Einstellungen verwalten.",
+};
+
 export async function generateMetadata({ params }) {
   const { lang } = await params;
   const entry = await getEntry(lang);
@@ -16,6 +23,7 @@ export async function generateMetadata({ params }) {
     lang,
     path: "/cookie-policy",
     fallbackTitle: entry?.name ? `${entry.name} | DI plan` : "DI plan",
+    fallbackDescription: DESCRIPTIONS[lang] || DESCRIPTIONS.hr,
   });
 }
 

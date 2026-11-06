@@ -7,7 +7,14 @@ import { buildMetadata } from "../../../lib/seo";
 const LIST_TITLES = {
   hr: "Novosti | DI plan",
   en: "News | DI plan",
-  de: "Nachrichten | DI plan",
+  de: "Aktuelles | DI plan",
+};
+
+// No SEO fields exist in Strapi for the list page (client report v4, item 8)
+const LIST_DESCRIPTIONS = {
+  hr: "Novosti i stručni članci DI plana o arhitekturi, statici, stručnom nadzoru i energetskoj obnovi zgrada.",
+  en: "News and expert articles from DI plan on architecture, structural engineering, construction supervision and energy renovation.",
+  de: "Aktuelles und Fachbeiträge von DI plan zu Architektur, Tragwerksplanung, Bauüberwachung und energetischer Sanierung.",
 };
 
 async function getBlogs(lang) {
@@ -24,6 +31,7 @@ export async function generateMetadata({ params }) {
     lang,
     path: "/news",
     fallbackTitle: LIST_TITLES[lang] || LIST_TITLES.hr,
+    fallbackDescription: LIST_DESCRIPTIONS[lang] || LIST_DESCRIPTIONS.hr,
   });
 }
 
