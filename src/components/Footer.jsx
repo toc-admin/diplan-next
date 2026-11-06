@@ -13,35 +13,40 @@ const Footer = ({ show }) => {
   const menuItems = [
     { key: "home", route: ROUTES.HOME },
     { key: "about", route: ROUTES.ABOUT_US },
+    { key: "projects", route: ROUTES.PROJECT },
     { key: "services", route: ROUTES.SERVICE },
     { key: "contact", route: ROUTES.CONTACT },
     { key: "blog", route: ROUTES.BLOG },
   ];
 
+  // Labels match the header menu (client report v4, item 3)
   const menuLabels = {
     "hr-HR": {
       menu: "Izbornik",
       home: "Početna",
       about: "O nama",
+      projects: "Projekti",
       services: "Usluge",
       contact: "Kontakt",
-      blog: "Blog",
+      blog: "Novosti",
     },
     en: {
       menu: "Menu",
       home: "Home",
       about: "About Us",
+      projects: "Projects",
       services: "Services",
       contact: "Contact",
-      blog: "Blog",
+      blog: "News",
     },
     "de-DE": {
       menu: "Menü",
       home: "Startseite",
       about: "Über uns",
-      services: "Dienstleistungen",
+      projects: "Projekte",
+      services: "Leistungen",
       contact: "Kontakt",
-      blog: "Blog",
+      blog: "Aktuelles",
     },
   };
 
@@ -100,10 +105,10 @@ const Footer = ({ show }) => {
               </h3>
               <p className="font-medium text-white max-w-[500px] text-sm">
                 {locale.locale === "hr-HR"
-                  ? "DI plan je multidisciplinarni ured iz Zagreba specijaliziran za idejna rješenja, glavne projekte, stručni nadzor i energetsku obnovu višestambenih zgrada. Naš tim pruža potpunu podršku u svim fazama - od prvih ideja i savjetovanja do realizacije i završetka projekta. Vjerujemo u partnerstvo i dugoročnu vrijednost. Svaki prostor oblikujemo tako da bude funkcionalan, energetski učinkovit i prilagođen stvarnim potrebama korisnika. Radimo na području cijele Hrvatske i gradimo rješenja koja traju"
+                  ? "DI plan je multidisciplinarni ured iz Zagreba specijaliziran za idejna rješenja, glavne projekte, stručni nadzor i energetsku obnovu višestambenih zgrada. Naš tim pruža potpunu podršku u svim fazama – od prvih ideja i savjetovanja do realizacije i završetka projekta. Vjerujemo u partnerstvo i dugoročnu vrijednost. Svaki prostor oblikujemo tako da bude funkcionalan, energetski učinkovit i prilagođen stvarnim potrebama korisnika. Radimo na području cijele Hrvatske i gradimo rješenja koja traju."
                   : locale.locale === "en"
-                  ? "DI plan is a multidisciplinary office from Zagreb specialized in conceptual solutions, main projects, professional supervision and energy renovation of multi-residential buildings. Our team provides complete support in all phases - from initial ideas and consulting to implementation and project completion. We believe in partnership and long-term value. We design every space to be functional, energy-efficient and adapted to the real needs of users. We work throughout Croatia and build solutions that last."
-                  : "DI plan ist ein multidisziplinäres Büro aus Zagreb, spezialisiert auf konzeptionelle Lösungen, Hauptprojekte, fachliche Überwachung und energetische Sanierung von Mehrfamilienhäusern. Unser Team bietet vollständige Unterstützung in allen Phasen - von ersten Ideen und Beratung bis zur Umsetzung und Projektabschluss. Wir glauben an Partnerschaft und langfristigen Wert. Jeden Raum gestalten wir so, dass er funktional, energieeffizient und an die realen Bedürfnisse der Nutzer angepasst ist. Wir arbeiten in ganz Kroatien und entwickeln Lösungen, die Bestand haben."}
+                  ? "DI plan is a multidisciplinary office from Zagreb specialized in conceptual solutions, main designs, construction supervision and energy renovation of multi-apartment buildings. Our team provides complete support in all phases – from initial ideas and consulting to implementation and project completion. We believe in partnership and long-term value. We design every space to be functional, energy-efficient and adapted to the real needs of users. We work throughout Croatia and build solutions that last."
+                  : "DI plan ist ein multidisziplinäres Büro aus Zagreb, spezialisiert auf Vorentwürfe, Genehmigungsplanung, Bauüberwachung und energetische Sanierung von Mehrfamilienhäusern. Unser Team bietet vollständige Unterstützung in allen Phasen – von ersten Ideen und Beratung bis zur Umsetzung und zum Projektabschluss. Wir glauben an Partnerschaft und langfristigen Wert. Jeden Raum gestalten wir so, dass er funktional, energieeffizient und an die realen Bedürfnisse der Nutzer angepasst ist. Wir arbeiten in ganz Kroatien und entwickeln Lösungen, die Bestand haben."}
               </p>
             </div>
             <div className="flex flex-col gap-2 items-start justify-start">
@@ -124,7 +129,7 @@ const Footer = ({ show }) => {
               <h3 className="text-white font-bold text-xl">
                 {locale.locale === "hr-HR" && "Prati nas"}
                 {locale.locale === "en" && "Follow us"}
-                {locale.locale === "de-DE" && "Folgt uns"}
+                {locale.locale === "de-DE" && "Folgen Sie uns"}
               </h3>
               <a
                 href="https://www.instagram.com/di__plan/"
@@ -153,12 +158,14 @@ const Footer = ({ show }) => {
             </div>
             <div className="flex flex-col gap-2 items-start justify-start">
               <h3 className="text-white font-bold text-xl">
-                {locale.locale === "hr-HR" && "Javi nam se"}
+                {locale.locale === "hr-HR" && "Javite nam se"}
                 {locale.locale === "en" && "Get in touch"}
                 {locale.locale === "de-DE" && "Kontaktieren Sie uns"}
               </h3>
               <a href="mailto:upiti@di-plan.hr" className="text-card-bg/70 font-semibold">
-                Email: upiti@di-plan.hr
+                {locale.locale === "hr-HR" && "E-mail: upiti@di-plan.hr"}
+                {locale.locale === "en" && "Email: upiti@di-plan.hr"}
+                {locale.locale === "de-DE" && "E-Mail: upiti@di-plan.hr"}
               </a>
               <p className="text-card-bg/70 font-semibold clash">
                 Zagrebačka cesta 143A, Zagreb
@@ -173,7 +180,10 @@ const Footer = ({ show }) => {
       <div className="bg-brand-color md:px-44 px-4 flex pb-12 items-center justify-center">
         <div className="flex items-center justify-between w-full max-w-[1400px] gap-12 pt-4">
           <p className="text-white/80 text-sm">
-            © {new Date().getFullYear()} DI-PLAN d.o.o. Sva prava pridržana. Izrada:{" "}
+            © {new Date().getFullYear()} DI plan d.o.o.{" "}
+            {locale.locale === "hr-HR" && "Sva prava pridržana. Izrada:"}
+            {locale.locale === "en" && "All rights reserved. Built by"}
+            {locale.locale === "de-DE" && "Alle Rechte vorbehalten. Umsetzung:"}{" "}
             <a href="https://www.ninefold.eu" target="_blank" rel="noopener">
               Ninefold
             </a>

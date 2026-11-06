@@ -2,7 +2,7 @@ import { strapiFetch, LOCALIZATIONS_PARAMS } from "../../../lib/strapi";
 import { buildMetadata } from "../../../lib/seo";
 import ServicesPageClient from "../../../components/ServicesPageClient";
 import JsonLd from "../../../components/JsonLd";
-import { breadcrumbJsonLd, crumbLabel } from "../../../lib/jsonLd";
+import { breadcrumbJsonLd, crumbLabel, faqJsonLd } from "../../../lib/jsonLd";
 
 async function getContent(lang) {
   return strapiFetch("services-page", {
@@ -79,7 +79,12 @@ export default async function ServicesPage({ params }) {
 
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd(lang, [{ name: crumbLabel("service", lang), path: "/service" }])} />
+      <JsonLd
+        data={[
+          faqJsonLd(content?.faq),
+          breadcrumbJsonLd(lang, [{ name: crumbLabel("service", lang), path: "/service" }]),
+        ]}
+      />
       <ServicesPageClient content={content} />
     </>
   );

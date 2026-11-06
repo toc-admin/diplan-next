@@ -69,7 +69,7 @@ const TEXT = {
       ["Über uns", ROUTES.ABOUT_US],
       ["Projekte", ROUTES.PROJECT],
       ["Leistungen", ROUTES.SERVICE],
-      ["Nachrichten", ROUTES.BLOG],
+      ["Aktuelles", ROUTES.BLOG],
       ["Kontakt", ROUTES.CONTACT],
     ],
     cta: "Starten Sie Ihr Projekt",

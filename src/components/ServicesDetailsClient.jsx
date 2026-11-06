@@ -83,7 +83,7 @@ const ServicesDetailsClient = ({ service, initialProjects }) => {
             ? "Ključne prednosti"
             : locale === "en"
             ? "Key Benefits"
-            : "entscheidende Vorteile"
+            : "Entscheidende Vorteile"
           }
         </h3>
         <div className="w-full max-w-[1200px] mx-auto flex flex-col gap-16 py-16 px-4">
@@ -135,7 +135,7 @@ const ServicesDetailsClient = ({ service, initialProjects }) => {
       {service?.ourProcess?.length > 0 ? <div className="flex w-full bg-white items-center justify-center mb-48 mt-16">
         <div className="flex lg:flex-row flex-col max-w-[1300px] w-full lg:items-start items-center justify-between px-4 gap-16">
           <h3 className="font-semibold text-brand-color lg:text-left text-center uppercase text-base w-full max-w-[230px]">
-            {service?.procesTitle}?
+            {service?.procesTitle}
           </h3>
           <div className="space-y-8 w-full max-w-[600px]">
             {service?.ourProcess?.map((item, index) => (

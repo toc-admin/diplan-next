@@ -20,12 +20,13 @@ const ProjectsPageClient = ({ content, initialProjects, initialPagination, pageS
   const [activeFilter, setActiveFilter] = useState("all");
 
   // Filter categories based on the whichService field
+  // Filter labels mirror the service names (client report v4, item 5)
   const filterCategories = [
-    { key: "all", label: { "hr-HR": "Svi Projekti", en: "All Projects", "de-DE": "Alle Projekte" } },
+    { key: "all", label: { "hr-HR": "Svi projekti", en: "All Projects", "de-DE": "Alle Projekte" } },
     { key: "ARHITEKTURA", label: { "hr-HR": "Arhitektura", en: "Architecture", "de-DE": "Architektur" } },
     { key: "STATIKA", label: { "hr-HR": "Statika", en: "Structural Engineering", "de-DE": "Statik" } },
-    { key: "ENERGETSKA", label: { "hr-HR": "Energetska Efikasnost", en: "Energy Efficiency", "de-DE": "Energieeffizienz" } },
-    { key: "NADZOR", label: { "hr-HR": "Nadzor", en: "Supervision", "de-DE": "Überwachung" } },
+    { key: "ENERGETSKA", label: { "hr-HR": "Energetska rješenja", en: "Energy Solutions", "de-DE": "Energielösungen" } },
+    { key: "NADZOR", label: { "hr-HR": "Nadzor", en: "Construction Supervision", "de-DE": "Bauüberwachung" } },
   ];
 
   const fetchProjects = async (page = 1, filter = "all", append = false) => {

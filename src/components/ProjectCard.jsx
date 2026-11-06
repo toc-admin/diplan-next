@@ -10,7 +10,7 @@ const ProjectCard = (props) => {
         {props.image && (
           <Image
             src={props.image}
-            alt={props.title}
+            alt={props.name || ""}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
             className="object-cover transition-transform duration-300 group-hover:scale-105"

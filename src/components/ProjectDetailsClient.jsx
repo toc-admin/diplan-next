@@ -5,8 +5,9 @@ import { useLocale } from "../config/localeContext";
 import ReactMarkdown from "react-markdown";
 import { motion } from "framer-motion";
 import MixedTitleLong from "./MixedTitleLong";
+import Link from "./LocalizedLink";
 
-const ProjectDetailsClient = ({ project }) => {
+const ProjectDetailsClient = ({ project, relatedService }) => {
   const { locale } = useLocale();
 
   const images = project?.images || [];
@@ -124,6 +125,20 @@ const ProjectDetailsClient = ({ project }) => {
             </div>
           </div>
         </div>
+        {relatedService?.slug && relatedService?.heroTitle && (
+          <p className="pt-12 text-lg">
+            <Link
+              to={`/service/${relatedService.slug}`}
+              className="text-brand-color font-semibold underline underline-offset-4 hover:text-cta-color transition-colors"
+            >
+              {locale === "hr-HR"
+                ? `Više o usluzi: ${relatedService.heroTitle}`
+                : locale === "en"
+                ? `More about this service: ${relatedService.heroTitle}`
+                : `Mehr zur Leistung: ${relatedService.heroTitle}`}
+            </Link>
+          </p>
+        )}
         <h3 className="text-gray-600 uppercase font-semibold text-sm pt-32">
           {locale === "hr-HR"
             ? "Galerija"

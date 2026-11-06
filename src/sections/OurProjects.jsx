@@ -61,7 +61,7 @@ const OurProjects = ({ id, content, filter, initialProjects = null }) => {
       {projects && projects.length > 0 ? <div className="border-1 border-brand-color rounded-full px-4 sm:px-6 py-1 sm:py-2">
         <h3 className="text-sm sm:text-base text-brand-color">
           {locale === "hr-HR"
-            ? "Naši Projekti"
+            ? "Naši projekti"
             : locale === "en"
             ? "Our Projects"
             : "Unsere Projekte"}

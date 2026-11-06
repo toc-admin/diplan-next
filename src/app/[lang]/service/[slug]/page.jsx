@@ -3,7 +3,7 @@ import { strapiFetch, strapiFindBySlug, localizedPaths, LOCALIZATIONS_PARAMS } f
 import { buildMetadata } from "../../../../lib/seo";
 import ServicesDetailsClient from "../../../../components/ServicesDetailsClient";
 import JsonLd from "../../../../components/JsonLd";
-import { serviceJsonLd, breadcrumbJsonLd, crumbLabel } from "../../../../lib/jsonLd";
+import { serviceJsonLd, breadcrumbJsonLd, crumbLabel, faqJsonLd } from "../../../../lib/jsonLd";
 
 const DETAIL_PARAMS = {
   "populate[coverImage]": "true",
@@ -62,6 +62,7 @@ export default async function ServiceDetailsPage({ params }) {
       <JsonLd
         data={[
           serviceJsonLd({ name: service.heroTitle, lang }),
+          faqJsonLd(service.faq),
           breadcrumbJsonLd(lang, [
             { name: crumbLabel("service", lang), path: "/service" },
             { name: service.heroTitle, path: `/service/${slug}` },

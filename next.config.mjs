@@ -28,22 +28,29 @@ const nextConfig = {
       { source: "/projects", destination: "/project", permanent: true },
       { source: "/blog", destination: "/news", permanent: true },
       { source: "/blog/:slug", destination: "/news/:slug", permanent: true },
-      // Duplicate project entry — both slugs describe the same building;
-      // the -1 variant 301s to the canonical page (client report, 18.10.2026)
+      // The -1 slug was a separate project (structural engineering of the
+      // same building), not a duplicate — in Strapi it now lives under a
+      // descriptive slug, and the old address 301s there (report v4, item 2)
       {
         source: "/project/stambena-zgrada-dakovacka-1",
-        destination: "/project/stambena-zgrada-dakovacka",
+        destination: "/project/statika-stambene-zgrade-dakovacka",
         permanent: true,
       },
-      // EN lives under a translated slug, DE shares the Croatian one
       {
-        source: "/en/project/:slug(stambena-zgrada-dakovacka|stambena-zgrada-dakovacka-1)",
-        destination: "/en/project/residential-building-dakovacka",
+        source: "/en/project/stambena-zgrada-dakovacka-1",
+        destination: "/en/project/dakovacka-residential-building-structural-engineering",
         permanent: true,
       },
       {
         source: "/de/project/stambena-zgrada-dakovacka-1",
-        destination: "/de/project/stambena-zgrada-dakovacka",
+        destination: "/de/project/wohngebaeude-dakovacka-tragwerksplanung",
+        permanent: true,
+      },
+      // The architecture project: EN lives under a translated slug, DE
+      // shares the Croatian one
+      {
+        source: "/en/project/stambena-zgrada-dakovacka",
+        destination: "/en/project/residential-building-dakovacka",
         permanent: true,
       },
     ];
